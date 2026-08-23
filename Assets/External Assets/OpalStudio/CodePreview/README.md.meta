@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ec196355d879c0741a76699f8378aac8
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 339468
+  packageName: CodePreview
+  packageVersion: 1.4.0
+  assetPath: Assets/OpalStudio/CodePreview/README.md
+  uploadId: 918066
