@@ -1,3 +1,4 @@
+using Alchemy.Inspector;
 using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
@@ -19,7 +20,7 @@ public class ScoreManager : MonoBehaviour
     }
 
     [Header("Debug (read-only)")]
-    [SerializeField] private int debugFares;
+    [SerializeField, ReadOnly] private int debugFares;
 
     public void AddFare()
     {
