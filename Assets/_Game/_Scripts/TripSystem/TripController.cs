@@ -1,3 +1,4 @@
+using Alchemy.Inspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,7 +19,7 @@ public class TripController : MonoBehaviour
     [SerializeField] private float wrongFollowTime = 26f;
 
     [Header("Trip shape")]
-    [SerializeField] private int encountersPerTrip = 4;
+    [SerializeField] private int encountersPerTrip = 4; // TODO: This will be according to the EncounterData
 
     public TripState CurrentState { get; private set; }
     public int EncounterIndex { get; private set; }
@@ -72,7 +73,7 @@ public class TripController : MonoBehaviour
     }
 
     [Header("Debug (read-only)")]
-    [SerializeField] private TripState debugState;
+    [SerializeField, ReadOnly] private TripState debugState;
 
     private void SetState(TripState newState)
     {
