@@ -36,5 +36,6 @@ public class NightManager : MonoBehaviour
     private void HandleShiftEnd()
     {
         Debug.Log("Shift has ended. Transitioning to night mode.");
+        TripController.Instance.ForceEndCurrentFare();
     }
 }
