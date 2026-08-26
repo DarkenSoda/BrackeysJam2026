@@ -77,7 +77,7 @@ public class TripController : MonoBehaviour
     private void SetState(TripState newState)
     {
         CurrentState = newState;
-        debugState = newState; // mirrors CurrentState so you can see it in Play mode
+        debugState = newState; 
         OnTripStateChanged?.Invoke(newState);
     }
 }
