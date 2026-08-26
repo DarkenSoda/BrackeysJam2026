@@ -57,11 +57,14 @@ public class TripDrivingBridge : MonoBehaviour
 
     private void HandleOutcomeResolved(bool correct)
     {
-        // Fires after every Follow/Ignore choice, BEFORE TripController decides whether
-        // the trip is over. If it's the last encounter, OnTripStateChanged(DROPOFF) fires
-        // immediately after this in the same call stack and will override us into a stop —
-        // see TripController.ResolveChoice(): OnOutcomeResolved is invoked before SetState.
-        // So it's safe to always drive here; DROPOFF will correct it right after if needed.
-        DrivingController.Instance?.StartDriving();
+        // Don't blindly start driving here. AddTimePenalty (called just above this in
+        // TripController.ResolveChoice) can synchronously trigger shift-end -> DROPOFF
+        // -> ArriveAtStop() BEFORE this event fires. If that happened, TripController's
+        // CurrentState will already be DROPOFF by the time we get here, and we must NOT
+        // override that stop by driving again.
+        if (TripController.Instance != null && TripController.Instance.CurrentState == TripState.ENCOUNTER)
+        {
+            DrivingController.Instance?.StartDriving();
+        }
     }
 }

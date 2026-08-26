@@ -52,6 +52,11 @@ public class DrivingController : MonoBehaviour
     [Header("Debug (read-only)")]
     [SerializeField, ReadOnly] private DrivingState debugState;
     [SerializeField, ReadOnly] private float debugSpeed01;
+    [SerializeField, ReadOnly] private bool debugIsMoving;
+
+    /// <summary>True whenever the car is actually in motion (Accelerating or Cruising).
+    /// Use this instead of checking CurrentState directly if you just need a yes/no answer.</summary>
+    public bool IsMoving => CurrentState == DrivingState.Accelerating || CurrentState == DrivingState.Cruising;
 
     private void Awake()
     {
@@ -99,8 +104,8 @@ public class DrivingController : MonoBehaviour
     /// <summary>Call when the car should slow down and stop (arriving at a junction/dropoff).</summary>
     public void ArriveAtStop()
     {
-        if (CurrentState == DrivingState.Idle)
-            return; // already stopped
+        if (CurrentState == DrivingState.Idle || CurrentState == DrivingState.Braking)
+            return; // already stopped, or already stopping — ignore redundant calls
 
         speedTarget = 0f;
         SetState(DrivingState.Braking);
@@ -110,6 +115,8 @@ public class DrivingController : MonoBehaviour
     {
         CurrentState = newState;
         debugState = newState;
+        debugIsMoving = IsMoving;
+        Debug.Log($"[DrivingController] State -> {newState} (IsMoving: {IsMoving})");
 
         switch (newState)
         {
