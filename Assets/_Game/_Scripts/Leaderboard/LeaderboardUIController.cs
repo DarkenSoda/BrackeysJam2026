@@ -4,15 +4,8 @@ using TMPro;
 using UGSLeaderboardKit;
 using Unity.Services.Authentication;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
-/// <summary>
-/// Owns the leaderboard display only: loading the full list, rendering it,
-/// updating the current-player banner, and submitting scores. Has no login UI
-/// and doesn't sign anyone in — call Show() once the player is already signed in
-/// (e.g. wired from LoginController.OnLoggedIn in the Inspector).
-/// </summary>
 public class LeaderboardUIController : MonoBehaviour
 {
     [SerializeField] private string leaderboardId = "TestLeaderboard";
@@ -21,15 +14,30 @@ public class LeaderboardUIController : MonoBehaviour
     [SerializeField] private GameObject leaderboardPanel;
     [SerializeField] private Transform scrollContentContainer;
     [SerializeField] private GameObject entryPrefab;
+    [SerializeField] private Button refreshButton;
 
     [Header("Current Player Banner")]
     [SerializeField] private TMP_Text currentPlayerRankText;
     [SerializeField] private TMP_Text currentPlayerNameText;
     [SerializeField] private TMP_Text currentPlayerScoreText;
+
     private void Start()
     {
-        leaderboardPanel.SetActive(false);
+
+        if (refreshButton != null)
+            refreshButton.onClick.AddListener(HandleRefreshButtonClicked);
+
+        Show();
     }
+
+    private void OnDestroy()
+    {
+        if (refreshButton != null)
+            refreshButton.onClick.RemoveListener(HandleRefreshButtonClicked);
+    }
+
+    void HandleRefreshButtonClicked() => _ = RefreshAsync();
+
     public async void Show()
     {
         await UGSBootstrap.InitializeAsync();
@@ -54,6 +62,9 @@ public class LeaderboardUIController : MonoBehaviour
 
     public async Task RefreshAsync()
     {
+        if (refreshButton != null)
+            refreshButton.interactable = false;
+
         try
         {
             var page = await LeaderboardManager.GetAllScoresAsync(leaderboardId);
@@ -63,6 +74,11 @@ public class LeaderboardUIController : MonoBehaviour
         catch (Exception e)
         {
             Debug.LogError("Error fetching leaderboard: " + e.Message);
+        }
+        finally
+        {
+            if (refreshButton != null)
+                refreshButton.interactable = true;
         }
     }
 

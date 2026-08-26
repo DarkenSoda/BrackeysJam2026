@@ -14,12 +14,6 @@ public class LeaderboardEntryUI : MonoBehaviour
     [SerializeField] private Color currentPlayerColor = new Color(1f, 0.92f, 0.6f);
 
     public string PlayerId { get; private set; }
-
-    /// <summary>
-    /// playerId is passed in explicitly (from LeaderboardEntry.PlayerId) rather than
-    /// parsed out of the display name string — safer than the previous
-    /// playerName.Split('#')[1], which threw if a name had no '#' discriminator.
-    /// </summary>
     public void Setup(string rank, string playerName, string score, string playerId, bool isCurrentPlayer)
     {
         rankText.text = rank;

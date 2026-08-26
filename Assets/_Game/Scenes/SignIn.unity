@@ -341,10 +341,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LoginUIController
   loginPanel: {fileID: 195857830}
   nameInputField: {fileID: 195857829}
-  submitButton: {fileID: 195857828}
-  OnLoggedIn:
-    m_PersistentCalls:
-      m_Calls: []
+  enterButton: {fileID: 195857828}
 --- !u!1 &562250239
 GameObject:
   m_ObjectHideFlags: 0

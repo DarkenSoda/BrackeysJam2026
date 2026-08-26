@@ -4,32 +4,25 @@ using UGSLeaderboardKit;
 using Unity.Services.Authentication;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-/// <summary>
-/// Owns sign-in only: shows the name-entry panel (or skips it for returning
-/// players), signs the player in, and fires OnLoggedIn. Doesn't know the
-/// leaderboard UI exists — wire OnLoggedIn to LeaderboardController.Show()
-/// in the Inspector to connect the two.
-/// </summary>
 public class LoginUIController : MonoBehaviour
 {
     [Header("Login UI")]
     [SerializeField] private GameObject loginPanel;
     [SerializeField] private TMP_InputField nameInputField;
-    [SerializeField] private Button submitButton;
-
-    [Header("Events")]
-    public UnityEvent OnLoggedIn;
+    [SerializeField] private Button enterButton;
 
     const string HasNameKey = "UGSLeaderboard_HasSetName";
+    const string NextSceneName = "Leaderboard";
 
     async void Start()
     {
-        submitButton.interactable = false;
+        enterButton.interactable = false;
         await UGSBootstrap.InitializeAsync();
 
-        submitButton.onClick.AddListener(SubmitNameAndLogin);
+        enterButton.onClick.AddListener(SubmitNameAndLogin);
         nameInputField.onValueChanged.AddListener(ChangeSubmitButtonState);
 
         bool returningPlayer = AuthenticationService.Instance.IsSignedIn &&
@@ -39,7 +32,7 @@ public class LoginUIController : MonoBehaviour
         if (returningPlayer)
         {
             loginPanel.SetActive(false);
-            OnLoggedIn?.Invoke();
+            LoadNextScene();
         }
         else
         {
@@ -49,11 +42,11 @@ public class LoginUIController : MonoBehaviour
 
     void OnDestroy()
     {
-        submitButton.onClick.RemoveListener(SubmitNameAndLogin);
+        enterButton.onClick.RemoveListener(SubmitNameAndLogin);
         nameInputField.onValueChanged.RemoveListener(ChangeSubmitButtonState);
     }
 
-    void ChangeSubmitButtonState(string arg) => submitButton.interactable = !string.IsNullOrEmpty(arg);
+    void ChangeSubmitButtonState(string arg) => enterButton.interactable = !string.IsNullOrEmpty(arg);
 
     private async void SubmitNameAndLogin()
     {
@@ -68,7 +61,7 @@ public class LoginUIController : MonoBehaviour
             PlayerPrefs.Save();
 
             loginPanel.SetActive(false);
-            OnLoggedIn?.Invoke();
+            LoadNextScene();
         }
         catch (Exception e)
         {
@@ -79,10 +72,14 @@ public class LoginUIController : MonoBehaviour
             SetBusy(false);
         }
     }
+    private void LoadNextScene()
+    {
+        SceneManager.LoadScene(NextSceneName);
+    }
 
     void SetBusy(bool busy)
     {
-        submitButton.interactable = !busy && !string.IsNullOrEmpty(nameInputField.text);
+        enterButton.interactable = !busy && !string.IsNullOrEmpty(nameInputField.text);
         nameInputField.interactable = !busy;
     }
 }
