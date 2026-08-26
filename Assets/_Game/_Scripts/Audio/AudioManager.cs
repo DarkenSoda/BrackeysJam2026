@@ -2,28 +2,19 @@ using UnityEngine;
 
 /// <summary>
 /// Night Shift Taxi - AudioManager
-///
-///     HOW TO USE This :
+///     HOW TO USE THIS:
 ///     AudioManager.Instance.PlayCorrectFollow();
 ///     AudioManager.Instance.PlayMusic(mainMenuTheme);
 ///     AudioManager.Instance.PlayAmbient(nightStreetLoop);
 ///     AudioManager.Instance.PlayNPC(drunkVoiceClip);
 ///
 /// </summary>
-
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
-
-    [Header("Audio Sources")]
-    [Tooltip("Dedicated source for looping music. Only one track plays at a time.")]
-    [SerializeField] private AudioSource musicSource;
-
-    [Tooltip("Dedicated source for one-shot SFX (UI, correct/wrong calls, pickup/dropoff, NPC lines, etc).")]
-    [SerializeField] private AudioSource sfxSource;
-
-    [Tooltip("Dedicated source for looping ambient background sound.")]
-    [SerializeField] private AudioSource ambientSource;
+    private AudioSource musicSource;
+    private AudioSource sfxSource;
+    private AudioSource ambientSource;
 
     [Header("Volumes")]
     [Range(0f, 1f)] [SerializeField] private float musicVolume = 1f;
@@ -52,22 +43,24 @@ public class AudioManager : MonoBehaviour
         }
         Instance = this;
 
-        ForceTwoD(musicSource);
-        ForceTwoD(sfxSource);
-        ForceTwoD(ambientSource);
-
-        if (musicSource != null) musicSource.loop = true;
-        if (ambientSource != null) ambientSource.loop = true;
+        musicSource = CreateSource("MusicSource", loop: true);
+        sfxSource = CreateSource("SFXSource", loop: false);
+        ambientSource = CreateSource("AmbientSource", loop: true);
     }
 
-    private void ForceTwoD(AudioSource source)
+    private AudioSource CreateSource(string name, bool loop)
     {
-        if (source == null) return;
+        GameObject sourceObject = new GameObject(name);
+        sourceObject.transform.SetParent(transform);
+
+        AudioSource source = sourceObject.AddComponent<AudioSource>();
+        source.loop = loop;
         source.spatialBlend = 0f;
+        source.playOnAwake = false;
+        return source;
     }
 
     // ==================== Music ====================
-
     /// Plays looping music. Stops whatever was playing first. If this exact
     public void PlayMusic(AudioClip clip)
     {
@@ -85,8 +78,7 @@ public class AudioManager : MonoBehaviour
         musicSource?.Stop();
     }
 
-    // ==================== SFX / Stingers====================
-
+    // ==================== SFX / Stingers ====================
     /// Plays a 2D one-shot sound effect with a small random pitch variation.
     public void PlaySFX(AudioClip clip)
     {
@@ -96,7 +88,7 @@ public class AudioManager : MonoBehaviour
         sfxSource.PlayOneShot(clip, sfxVolume);
     }
 
-    // ==================== Some helpers ====================
+    // ==================== Night Shift Taxi helpers ====================
 
     public void PlayCorrectFollow() => PlaySFX(correctFollowClip);
     public void PlayWrongFollow() => PlaySFX(wrongFollowClip);
@@ -112,8 +104,7 @@ public class AudioManager : MonoBehaviour
     }
 
     // ==================== Ambient ====================
-
-    /// Plays a looping ambient background clip. 
+    /// Plays a looping ambient background clip. If this exact clip is
     public void PlayAmbient(AudioClip clip)
     {
         if (ambientSource == null || clip == null) return;
