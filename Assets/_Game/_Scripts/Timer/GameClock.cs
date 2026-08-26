@@ -2,48 +2,74 @@ using UnityEngine;
 
 public class GameClock : MonoBehaviour
 {
+    public static GameClock Instance { get; private set; }
+
     [SerializeField] private ShiftConfig shiftConfig;
 
-    [SerializeField] private float currentRealSeconds = 0f;
-    private int currentInGameSeconds = 0;
-    private const int SECONDS_PER_DAY = 86400;
-    private int startSeconds;
-    private int endSeconds;
+    [SerializeField] private float hoursElapsed;
 
-    private bool shiftEnded = false;
+    private int shiftHours = 12;
+    private bool shiftEnded;
 
-    public float NormalizedTime => Mathf.Clamp01(currentRealSeconds / shiftConfig.RealShiftSeconds);
+    public float NormalizedTime => shiftHours <= 0 ? 1f : Mathf.Clamp01(hoursElapsed / shiftHours);
+    public bool ShiftEnded => shiftEnded;
+    public string ClockLabel => FormatClock();
 
     public event System.Action OnShiftEnd;
+    public event System.Action OnTimeChanged;
 
-    private void Start()
+    private void Awake()
     {
-        startSeconds = (shiftConfig.StartHour * 3600) + (shiftConfig.StartMinute * 60);
-        endSeconds = (shiftConfig.EndHour * 3600) + (shiftConfig.EndMinute * 60);
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        RecalcShiftHours();
     }
 
-    private void Update()
+    private void RecalcShiftHours()
     {
-        if (shiftEnded) return;
-
-        if (currentRealSeconds >= shiftConfig.RealShiftSeconds)
+        if (shiftConfig == null)
         {
-            shiftEnded = true;
-            OnShiftEnd?.Invoke();
+            shiftHours = 12;
             return;
         }
 
-        AdvanceTime(Time.deltaTime);
-
-        int durationSec = (endSeconds <= startSeconds)
-            ? (endSeconds + SECONDS_PER_DAY - startSeconds)
-            : (endSeconds - startSeconds);
-
-        currentInGameSeconds = (startSeconds + (int)(NormalizedTime * durationSec)) % SECONDS_PER_DAY;
+        int start = shiftConfig.StartHour * 60 + shiftConfig.StartMinute;
+        int end = shiftConfig.EndHour * 60 + shiftConfig.EndMinute;
+        int durationMin = end <= start ? (end + 24 * 60 - start) : (end - start);
+        shiftHours = Mathf.Max(1, durationMin / 60);
     }
 
-    public void AdvanceTime(float realSeconds)
+    public void AdvanceTime(float hours)
     {
-        currentRealSeconds = Mathf.Min(currentRealSeconds + realSeconds, shiftConfig.RealShiftSeconds);
+        if (shiftEnded) return;
+
+        RecalcShiftHours();
+        hoursElapsed = Mathf.Min(hoursElapsed + hours, shiftHours);
+        OnTimeChanged?.Invoke();
+
+        if (hoursElapsed >= shiftHours)
+        {
+            shiftEnded = true;
+            OnShiftEnd?.Invoke();
+        }
+    }
+
+    string FormatClock()
+    {
+        if (shiftConfig == null)
+            return "--:--";
+
+        int startMin = shiftConfig.StartHour * 60 + shiftConfig.StartMinute;
+        int nowMin = (startMin + Mathf.RoundToInt(hoursElapsed * 60)) % (24 * 60);
+        int h24 = nowMin / 60;
+        int m = nowMin % 60;
+        int h12 = h24 % 12;
+        if (h12 == 0) h12 = 12;
+        string ampm = h24 < 12 ? "AM" : "PM";
+        return $"{h12}:{m:00} {ampm}";
     }
 }

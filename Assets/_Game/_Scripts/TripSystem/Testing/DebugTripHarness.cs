@@ -11,8 +11,8 @@ public class DebugTripHarness : MonoBehaviour
         if (!enableDebugKeys) return;
 
         if (Input.GetKeyDown(KeyCode.P)) TripController.Instance.StartTrip();
-        if (Input.GetKeyDown(KeyCode.F)) TripController.Instance.ResolveChoice(followed: true, tipWasTruth: true);
-        if (Input.GetKeyDown(KeyCode.I)) TripController.Instance.ResolveChoice(followed: false, tipWasTruth: false);
+        if (Input.GetKeyDown(KeyCode.F)) TripController.Instance.ResolveChoice(true);
+        if (Input.GetKeyDown(KeyCode.I)) TripController.Instance.ResolveChoice(false);
     }
 }
 #endif

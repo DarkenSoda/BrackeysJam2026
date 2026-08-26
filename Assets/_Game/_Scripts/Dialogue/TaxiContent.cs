@@ -1,0 +1,138 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "TaxiContent", menuName = "Taxi/Taxi Content")]
+public class TaxiContent : ScriptableObject
+{
+    [Header("Places")]
+    public List<string> destinations = new List<string>
+    {
+        "the fish market",
+        "warehouse 9",
+        "the clock tower",
+        "the ferry ramp",
+        "the subway mouth",
+        "the velvet door",
+        "the twin plazas",
+        "the bronze lion",
+        "the salt shed",
+        "the shrine steps",
+        "the parking spiral",
+        "the news kiosk",
+        "the well square",
+        "the crane row",
+        "the glass atrium",
+        "the bell alley",
+        "the ticket booth",
+        "the bait shop"
+    };
+
+    public List<string> landmarks = new List<string>
+    {
+        "the iron bridge",
+        "the red neon pawn",
+        "the karaoke doorway",
+        "the pink awning",
+        "the brick arch",
+        "the laundry lines",
+        "the subway stairs",
+        "the rust crane",
+        "the ferry landing",
+        "the wet alley",
+        "the neon pawn shop",
+        "the late pharmacy",
+        "the bus depot",
+        "the overpass",
+        "the train tracks",
+        "the dumpster alley",
+        "the all-night diner",
+        "the church steps",
+        "the mural wall",
+        "the bike rack",
+        "the hot dog cart",
+        "the broken fountain",
+        "the hotel awning",
+        "the cop booth",
+        "the ATM row",
+        "the scaffolding",
+        "the yellow crane",
+        "the ice machine",
+        "the fire escape",
+        "the corner shrine",
+        "the lottery booth",
+        "the laundromat",
+        "the boarded cinema",
+        "the skate park",
+        "the container stack",
+        "the pier lamp",
+        "the station clock",
+        "the water tower",
+        "the taco window",
+        "the motel vacancy sign",
+        "the steel shutters",
+        "the graffiti wall",
+        "the dog park",
+        "the hospital bay",
+        "the loading dock",
+        "the radio tower",
+        "the canal lock",
+        "the market stalls",
+        "the bait cooler",
+        "the roof garden"
+    };
+
+    [Header("How they tell you to drive")]
+    public List<string> directions = new List<string>
+    {
+        "hang a left",
+        "hang a right",
+        "go straight",
+        "take a U-turn at the lights",
+        "cut under the bridge",
+        "take the detour past the tracks",
+        "stay in the left lane",
+        "nudge right at the split",
+        "don't turn, just keep going",
+        "loop around the block",
+        "squeeze past the cones",
+        "take the service road"
+    };
+
+    [Header("Customer pickup lines ({dest} {a} {b})")]
+    public List<string> customerLines = new List<string>
+    {
+        "hey. i need {dest}. i'm already late. my roommate said if you see {a} you're close, and {b} is around there too. can we just go?",
+        "yeah, {dest}. don't make it a whole thing. it's by {a}, and {b}'s nearby if that helps. meter running. let's move.",
+        "ok so it's {dest}. i'm pretty sure. they told me look for {a}, then {b} after that. if we miss it i'm walking. i'm not paying for a tour.",
+        "can you do {dest}? my cousin swears it's right by {a}. he also mumbled something about {b}. i don't know the city. that's why you're here.",
+        "night shift. get me to {dest} before dawn please. {a} is the giveaway, and {b} should be on that same stretch. last guy ignored me and we circled forever.",
+        "i'm not paying extra. {dest}. the one near {a}, not whatever fake one people keep sending cabs to. {b}'s on the way if you actually know the block.",
+        "uhh, {dest}? that's the one. they said {a} then {b}. i wrote it on my hand and then i sweated it off. just... try.",
+        "just dump me at {dest}. if you hit {a} you're close. if you see {b} too, even better. i'm not chatting. i've had a night.",
+        "please. {dest}. i've been on this curb for twenty minutes. my friend said {a} is right there, and {b} too. i will tip. maybe.",
+        "yeah yeah, {dest}. next to {a} i swear. you'll see {b} if you don't overshoot it. i'll tap the glass when we're close.",
+        "don't talk unless you have to. i need {dest}. look for {a}, {b}'s nearby. i've already explained this to three people tonight. go.",
+        "i think it's {dest}. they mumbled something about {a}, then {b}. i nodded like i understood. i did not. please just drive.",
+        "ok. {dest}. {a} then {b}, that's all i got. if you know a faster way i do not want to hear the story. i want the door.",
+        "take me to {dest}. if you see {a} we are close. if you see {b} and keep going we are circling. i have done this dance already."
+    };
+
+    [Header("Tip givers")]
+    public List<TipGiver> tipGivers = new List<TipGiver>();
+
+    [Header("Dropoff")]
+    public List<string> dropoffLines = new List<string>
+    {
+        "that's it. that's close enough. i can walk from the curb. meter. thanks i guess.",
+        "yeah this is me. don't wait, i'll be fine. you did alright. or you didn't. either way i'm out.",
+        "ok stop stop. this is the block. i'll find the door. keep the change if there is any. there isn't.",
+        "we're good. i can see it from here. don't circle. just let me out.",
+        "here. i'm hopping out. if this isn't it i'm not getting back in. nice talking. we didn't talk.",
+        "yeah, this smells like the right street. i'll take it from the corner. you can go. seriously, go."
+    };
+
+    [Header("Roll knobs")]
+    public int minTips = 3;
+    public int maxTips = 5;
+    public int landmarksOnPad = 2;
+}

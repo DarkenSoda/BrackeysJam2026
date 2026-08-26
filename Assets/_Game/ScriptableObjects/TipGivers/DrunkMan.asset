@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1b2c3d4e5f60718293a4b5c6d7e8f90, type: 3}
+  m_Name: DrunkMan
+  m_EditorClassIdentifier: Assembly-CSharp::TipGiver
+  displayName: Drunk man
+  lieChance: 0.7
+  truthLines:
+  - "yeah yeah {dest}. i can still see it. you wanna {dir}. no wait. {dir}. you'll pass {a}. then {b} after that. i'm fine. don't look at me like that."
+  - "ok listen. {dest}. you wanna {dir}. i live by {a}, gimme a sec. then {b} shows up and you're there. i have walked this drunk. i have walked this sober. same block."
+  - "{dest}? yeah. you wanna {dir}. don't argue. {a} is right there, then {b}. wait {dir}. i already said that. i'm fine."
+  - "pal. {dest}. you wanna {dir}. you pass {a}, then {b}. i was just there. or i was just somewhere. no, there. {a} doesn't lie. i do. not about this."
+  - "hold on. {dest}. you wanna {dir}. {a}'s the one, then {b}. everybody knows that. everybody who is me. which is a lot of people tonight."
+  - "wait wait. {dest}. you wanna {dir}. look, {a}, then {b}. that's the whole sermon. i am being so helpful. you should buy me a water. or don't."
+  lieLines:
+  - "trust me pal. if you want {dest} you wanna {dir}. {a} was the spot. nah still {a}. that's the one. i was just there. my feet agree. my feet are liars sometimes."
+  - "{dest}. you wanna {dir}. {a} then you're golden. still go. everybody knows. i said {dir}. i also said {a}. that's it. bro you got this."
+  - "i said {dest}. you wanna {dir}. look for {a}. i was just there. or i dreamed i was just there. same energy. go before i forget which one."
+  - "yeah {dest}. you wanna {dir}. {a} for sure. that's the one. nah wait. still {a}. i'm doubling down. doubling down is how you know it's true."
+  - "everybody knows you wanna {dir} if you're going to {dest}. look for {a}. i would bet... i don't have money. i would bet this shoe. it is not a matching shoe."
+  - "bro. {dest}. you wanna {dir}. {a}. that's the whole map. i drew it in the air. did you see the air. you missed the air. just go."
+  truthSprite: {fileID: -9041726990724665488, guid: 3ee6d5929c360424da6f9cba616748ab, type: 3}
+  lieSprite: {fileID: 6210443671484711363, guid: 9c6f3c117854cfa4e9a3d9ec22ed6b95, type: 3}

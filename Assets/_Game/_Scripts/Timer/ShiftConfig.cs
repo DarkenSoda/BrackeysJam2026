@@ -4,10 +4,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ShiftConfig", menuName = "Taxi/Shift Config")]
 public class ShiftConfig : ScriptableObject
 {
-    [field: Header("Real-World Timing")]
+    [field: Header("Unused (shift is in-game hours now)")]
 
     [field: SerializeField]
-    public float RealShiftSeconds { get; private set; } = 300f; // 5 minutes
+    public float RealShiftSeconds { get; private set; } = 300f;
 
     [field: Header("In-Game Shift Hours (24h format)")]
 
@@ -21,7 +21,7 @@ public class ShiftConfig : ScriptableObject
 
     [field: Range(0, 23)]
     [field: SerializeField]
-    public int EndHour { get; private set; } = 6;    // 6 AM
+    public int EndHour { get; private set; } = 8;    // 8 AM
 
     [field: Range(0, 59)]
     [field: SerializeField]

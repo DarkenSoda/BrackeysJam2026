@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1b2c3d4e5f60718293a4b5c6d7e8f90, type: 3}
+  m_Name: Tourist
+  m_EditorClassIdentifier: Assembly-CSharp::TipGiver
+  displayName: Tourist
+  lieChance: 0.4
+  truthLines:
+  - "oh my gosh wait—are you going to {dest}? we just walked that. you wanna {dir}. you'll go right by {a}, and then {b} shows up. that's when you know you're close. sorry, my english..."
+  - "excuse me! {dest}? yes we know it. you wanna {dir}. we took a photo in front of {a}. after that you will see {b}. the guidebook even had a little arrow. i can show you the page."
+  - "sorry to stop you. we were trying to find {dest} all afternoon. you wanna {dir}. you'll pass {a}, then {b} is on the corner. we got lost twice so now i am an expert. kind of."
+  - "oh! {dest}! you wanna {dir}. {a} is on my camera roll, see? then {b} is right after, you cannot miss it. my partner is waving, i should go. good luck!"
+  - "sorry, english. if you want {dest}, you wanna {dir}. we walked from {a}. you'll pass {b} after that. the hostel guy drew it on a napkin. the napkin is wet now. but i remember."
+  - "wait wait wait. {dest}. you wanna {dir}. look for {a}, that's the one we used. then {b} pops up and you are basically there. we walked it in flip flops. you will be fine."
+  lieLines:
+  - "my phone says {dest} is that way. you wanna {dir}. it pins {a}. the little blue dot is very confident. i trust the little blue dot. you should too."
+  - "map says you wanna {dir} if you want {dest}. it also says look for {a}. we followed it into a parking garage once. but this time it feels right. trust the map!"
+  - "hotel guy said if you want {dest}, you wanna {dir}. he pointed at {a} like it was famous. i nodded. i did not understand the pointing. still. that's the tip."
+  - "i think you wanna {dir} if you want {dest}. {a} looked like the spot on the postcard. we did not actually get there. but the postcard was very pretty. so."
+  - "gps says you wanna {dir} if you're going to {dest}. {a} has to be close, it is on the screenshot. my battery is at four percent. i am committing to this."
+  - "hostel said you wanna {dir} and look for {a} if you want {dest}. they said it very fast. i wrote it down wrong once already. this is the corrected version. i hope."
+  truthSprite: {fileID: -9041726990724665488, guid: 3ee6d5929c360424da6f9cba616748ab, type: 3}
+  lieSprite: {fileID: 6210443671484711363, guid: 9c6f3c117854cfa4e9a3d9ec22ed6b95, type: 3}
