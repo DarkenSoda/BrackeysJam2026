@@ -1,0 +1,299 @@
+fileFormatVersion: 2
+guid: dcccadc961212014397995f5ce12b294
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8194908017076463939
+    second: buildingsbackground1_0
+  - first:
+      213: -2430446517323553645
+    second: buildingsbackground1_1
+  - first:
+      213: 4192741814119908523
+    second: buildingsbackground1_2
+  - first:
+      213: 1654218047577177988
+    second: buildingsbackground1_3
+  - first:
+      213: 7863509232635465655
+    second: buildingsbackground1_4
+  - first:
+      213: -1899817554147988378
+    second: buildingsbackground1_5
+  - first:
+      213: 8854353544719428988
+    second: buildingsbackground1_6
+  - first:
+      213: -3720402416537040116
+    second: buildingsbackground1_7
+  - first:
+      213: 1567623833004698359
+    second: buildingsbackground1_8
+  - first:
+      213: 729546749536416591
+    second: buildingsbackground1_9
+  - first:
+      213: 7655768577798868882
+    second: buildingsbackground1_10
+  - first:
+      213: -7905277310923580946
+    second: buildingsbackground1_11
+  - first:
+      213: -5531435833585196279
+    second: buildingsbackground1_12
+  - first:
+      213: 6378756627892531385
+    second: buildingsbackground1_13
+  - first:
+      213: -3081404973826906165
+    second: buildingsbackground1_14
+  - first:
+      213: -7285165946389946906
+    second: buildingsbackground1_15
+  - first:
+      213: -6788548910783116482
+    second: buildingsbackground1_16
+  - first:
+      213: -714762638142266439
+    second: buildingsbackground1_17
+  - first:
+      213: 1268285479081224284
+    second: buildingsbackground1_18
+  - first:
+      213: -8418051896686903158
+    second: buildingsbackground1_19
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: buildingsbackground1_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 770
+        height: 1080
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 349e7dc4c692ab170800000000000000
+      internalID: 8194908017076463939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buildingsbackground1_1
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 664
+        width: 223
+        height: 185
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 394285105c1554ed0800000000000000
+      internalID: -2430446517323553645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buildingsbackground1_9
+      rect:
+        serializedVersion: 2
+        x: 1572
+        y: 671
+        width: 348
+        height: 322
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f43b82547eedf1a00800000000000000
+      internalID: 729546749536416591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: buildingsbackground1_11
+      rect:
+        serializedVersion: 2
+        x: 1873
+        y: 667
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee9d17f6b20da4290800000000000000
+      internalID: -7905277310923580946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 70c5c16261659be4095466e44d1c0236
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      buildingsbackground1_0: 8194908017076463939
+      buildingsbackground1_1: -2430446517323553645
+      buildingsbackground1_10: 7655768577798868882
+      buildingsbackground1_11: -7905277310923580946
+      buildingsbackground1_12: -5531435833585196279
+      buildingsbackground1_13: 6378756627892531385
+      buildingsbackground1_14: -3081404973826906165
+      buildingsbackground1_15: -7285165946389946906
+      buildingsbackground1_16: -6788548910783116482
+      buildingsbackground1_17: -714762638142266439
+      buildingsbackground1_18: 1268285479081224284
+      buildingsbackground1_19: -8418051896686903158
+      buildingsbackground1_2: 4192741814119908523
+      buildingsbackground1_20: 1728042094
+      buildingsbackground1_3: 1654218047577177988
+      buildingsbackground1_4: 7863509232635465655
+      buildingsbackground1_5: -1899817554147988378
+      buildingsbackground1_6: 8854353544719428988
+      buildingsbackground1_7: -3720402416537040116
+      buildingsbackground1_8: 1567623833004698359
+      buildingsbackground1_9: 729546749536416591
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
