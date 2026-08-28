@@ -111,6 +111,7 @@ MonoBehaviour:
   brakeTrigger: Brake
   debugState: 0
   debugSpeed01: 0
+  debugIsMoving: 0
 --- !u!1 &3633206421394282467
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,9 +191,9 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 55
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -5200767656365950142, guid: 524249ca89fb0c448af738882036c448, type: 3}
+  m_Sprite: {fileID: -5200767656365950142, guid: ee8fd5cbbfd76a24bad273e254be2e1d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -281,7 +282,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 55
   m_MaskInteraction: 0
   m_Sprite: {fileID: 163202063095548536, guid: 3caf2d7daa9b16947a13aad8296a9772, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -372,7 +373,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 55
   m_MaskInteraction: 0
   m_Sprite: {fileID: 163202063095548536, guid: 3caf2d7daa9b16947a13aad8296a9772, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
