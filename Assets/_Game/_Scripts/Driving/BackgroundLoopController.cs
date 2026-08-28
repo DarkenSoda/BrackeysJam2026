@@ -14,6 +14,11 @@ public class ParallaxLayer
     public float speedMultiplier = 1f;  // relative scroll speed for this layer
     public float segmentWidth = 20f;    // world-space width of one segment, for wrap-around
 
+    [Tooltip("Tick this on exactly ONE layer (usually Road) — that layer's wrap cycles " +
+             "are what TripDrivingBridge counts for the 1-3 cycle driving buffer. " +
+             "No string-matching, so there's nothing to mistype.")]
+    public bool isDrivingPaceLayer = false;
+
     [HideInInspector] public float scrollOffset;
 }
 
@@ -28,6 +33,8 @@ public class ParallaxLayer
 /// </summary>
 public class BackgroundLoopController : MonoBehaviour
 {
+    public static BackgroundLoopController Instance { get; private set; }
+
     [Header("Parallax layers (order: farthest first)")]
     [SerializeField] private ParallaxLayer[] layers;
 
@@ -44,7 +51,21 @@ public class BackgroundLoopController : MonoBehaviour
              "(NightManager's reference is private, so we need our own).")]
     [SerializeField] private GameClock gameClock;
 
+    /// <summary>Fired once each time a segment wraps around (completes one loop cycle).
+    /// isPaceLayer is true only for the layer marked isDrivingPaceLayer in the inspector.</summary>
+    public event System.Action<bool> OnLayerCycled;
+
     private float currentSpeed01;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
 
     private void OnEnable()
     {
@@ -106,6 +127,8 @@ public class BackgroundLoopController : MonoBehaviour
             {
                 float rightmostX = GetRightmostX(layer);
                 seg.position = new Vector3(rightmostX + layer.segmentWidth, seg.position.y, seg.position.z);
+                Debug.Log($"[BackgroundLoop] Layer '{layer.name}' cycled. isDrivingPaceLayer={layer.isDrivingPaceLayer}");
+                OnLayerCycled?.Invoke(layer.isDrivingPaceLayer);
             }
         }
     }

@@ -22,6 +22,16 @@ public class DialogueHud : MonoBehaviour
     private RolledTip shownTip;
     private GameClock clock;
 
+    // --- Driving-sync addition -------------------------------------------------
+    // ENCOUNTER (and now PICKUP too) can fire while the car is still driving toward
+    // its stop (see TripDrivingBridge / EncounterSpawner-style pacing). We don't want
+    // any content/buttons visible until the car has actually arrived, so reveal is
+    // deferred behind DrivingController's OnArrivedAtStop event instead of running
+    // immediately on state change. Tracks WHICH state we're waiting to reveal, since
+    // both PICKUP and ENCOUNTER now defer the same way.
+    private TripState? pendingRevealState;
+    // -----------------------------------------------------------------------------
+
     private void Awake()
     {
         if (speakerText == null)
@@ -35,6 +45,9 @@ public class DialogueHud : MonoBehaviour
             TripController.Instance.OnTripStateChanged += HandleState;
             TripController.Instance.OnOutcomeResolved += HandleOutcome;
         }
+
+        if (DrivingController.Instance != null)
+            DrivingController.Instance.OnArrivedAtStop += HandleCarArrived;
 
         clock = GameClock.Instance;
         if (clock != null)
@@ -51,6 +64,13 @@ public class DialogueHud : MonoBehaviour
             clock.OnTimeChanged += RefreshClock;
         }
         RefreshClock();
+
+        if (DrivingController.Instance != null)
+        {
+            DrivingController.Instance.OnArrivedAtStop -= HandleCarArrived;
+            DrivingController.Instance.OnArrivedAtStop += HandleCarArrived;
+        }
+
         if (TripController.Instance != null)
             HandleState(TripController.Instance.CurrentState);
     }
@@ -63,6 +83,9 @@ public class DialogueHud : MonoBehaviour
             TripController.Instance.OnOutcomeResolved -= HandleOutcome;
         }
 
+        if (DrivingController.Instance != null)
+            DrivingController.Instance.OnArrivedAtStop -= HandleCarArrived;
+
         if (clock != null)
             clock.OnTimeChanged -= RefreshClock;
     }
@@ -72,15 +95,19 @@ public class DialogueHud : MonoBehaviour
         HideFlash();
         StopAllCoroutines();
         waitingOnFlash = false;
+        pendingRevealState = null;
         RefreshClock();
 
         switch (state)
         {
             case TripState.PICKUP:
-                ShowPickup();
-                break;
             case TripState.ENCOUNTER:
-                ShowTip();
+                // Never trust "is the car currently moving" here — TripDrivingBridge reacts
+                // to this same event on its own subscriber, and subscriber call order isn't
+                // guaranteed, so checking IsMoving right now can race and show content early.
+                // Always wait for a fresh OnArrivedAtStop signal instead.
+                ShowButtons(cont: false, follow: false, ignore: false);
+                pendingRevealState = state;
                 break;
             case TripState.DROPOFF:
                 ShowDropoff();
@@ -92,6 +119,20 @@ public class DialogueHud : MonoBehaviour
         {
             AudioManager.Instance.PlayDialogueMuffle();
         }
+    }
+
+    private void HandleCarArrived()
+    {
+        if (pendingRevealState == null) return;
+        if (TripController.Instance == null || TripController.Instance.CurrentState != pendingRevealState.Value) return;
+
+        TripState reveal = pendingRevealState.Value;
+        pendingRevealState = null;
+
+        if (reveal == TripState.PICKUP)
+            ShowPickup();
+        else if (reveal == TripState.ENCOUNTER)
+            ShowTip();
     }
 
     private void ShowPickup()
