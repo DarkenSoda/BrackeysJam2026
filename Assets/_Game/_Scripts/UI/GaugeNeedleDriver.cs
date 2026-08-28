@@ -117,7 +117,10 @@ public class GaugeNeedleDriver : MonoBehaviour
         needle.localRotation = Quaternion.Euler(0f, 0f, angle);
 
         if (needleFill != null)
-            needleFill.fillAmount = value;
+        {
+            float fill = Mathf.Lerp(0.25f, 0.75f, value);
+            needleFill.fillAmount = fill;
+        }
     }
 
 #if UNITY_EDITOR

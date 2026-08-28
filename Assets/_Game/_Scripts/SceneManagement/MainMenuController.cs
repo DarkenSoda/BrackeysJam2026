@@ -37,6 +37,15 @@ public class MainMenuController : MonoBehaviour
     [Header("Settings Panel")]
     [SerializeField] private SettingsPanelController settingsPanel;
 
+    private void Awake()
+    {
+        // Hide the settings panel here — MainMenuController is always active so
+        // this Awake is guaranteed to run, unlike SettingsPanelController.Awake()
+        // which is skipped when the panel starts inactive in the scene.
+        if (settingsPanel != null)
+            settingsPanel.gameObject.SetActive(false);
+    }
+
     private void Start()
     {
         if (playButton        != null) playButton.onClick.AddListener(OnPlayClicked);

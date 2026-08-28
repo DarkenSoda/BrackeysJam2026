@@ -34,12 +34,6 @@ public class SettingsPanelController : MonoBehaviour
     [Header("Navigation")]
     [SerializeField] private Button closeButton;
 
-    private void Awake()
-    {
-        // Panel starts hidden; MainMenuController calls Show().
-        gameObject.SetActive(false);
-    }
-
     private void Start()
     {
         if (closeButton != null)
