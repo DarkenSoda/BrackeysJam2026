@@ -71,8 +71,8 @@ public class LoginUIController : MonoBehaviour
     }
     private void LoadNextScene()
     {
-        // After signing in, go to gameplay — not the leaderboard.
-        SceneLoader.LoadGameplay();
+        // After signing in, go to MainMenu.
+        SceneLoader.LoadMainMenu();
     }
 
     void SetBusy(bool busy)

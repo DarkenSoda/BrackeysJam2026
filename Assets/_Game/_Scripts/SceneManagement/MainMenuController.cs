@@ -97,7 +97,7 @@ public class MainMenuController : MonoBehaviour
     private void OnPlayClicked()
     {
         // Skip sign-in for returning players; send new players to enter a display name.
-        SceneLoader.LoadGameplayOrSignIn();
+        SceneLoader.LoadGameplay();
     }
 
     private void OnLeaderboardClicked()

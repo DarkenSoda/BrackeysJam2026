@@ -9,32 +9,23 @@ using UnityEngine.SceneManagement;
 ///
 /// Setup:
 ///   Add every scene listed here to File > Build Settings > Scenes In Build.
-///   Recommended order: MainMenu (0), SignIn (1), Driving (2), Leaderboard (3).
+///   Recommended order: SignIn (0), MainMenu (1), Driving (2), Leaderboard (3).
 /// </summary>
 public static class SceneLoader
 {
     // ── Scene name constants ──────────────────────────────────────────────
-    public const string MainMenu    = "MainMenu";
-    public const string SignIn      = "SignIn";
-    public const string Gameplay    = "Driving";     // ← main gameplay scene
+    public const string MainMenu = "MainMenu";
+    public const string SignIn = "SignIn";
+    public const string Gameplay = "Driving";     // ← main gameplay scene
     public const string Leaderboard = "Leaderboard";
 
     // ── Convenience loaders ───────────────────────────────────────────────
 
-    public static void LoadMainMenu()    => Load(MainMenu);
-    public static void LoadSignIn()      => Load(SignIn);
-    public static void LoadGameplay()    => Load(Gameplay);
+    public static void LoadMainMenu() => Load(MainMenu);
+    public static void LoadSignIn() => Load(SignIn);
+    public static void LoadGameplay() => Load(Gameplay);
     public static void LoadLeaderboard() => Load(Leaderboard);
 
-    /// <summary>
-    /// Checks whether the player already has a display name stored locally.
-    /// If yes, skip sign-in and go straight to gameplay.
-    /// </summary>
-    public static void LoadGameplayOrSignIn()
-    {
-        bool hasName = PlayerPrefs.GetInt(LoginKeys.HasSetName, 0) == 1;
-        Load(hasName ? Gameplay : SignIn);
-    }
 
     // ── Generic load with optional delay ─────────────────────────────────
 
