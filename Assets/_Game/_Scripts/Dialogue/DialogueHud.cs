@@ -86,6 +86,12 @@ public class DialogueHud : MonoBehaviour
                 ShowDropoff();
                 break;
         }
+
+        if (AudioManager.Instance != null && 
+            (state == TripState.PICKUP || state == TripState.ENCOUNTER || state == TripState.DROPOFF))
+        {
+            AudioManager.Instance.PlayDialogueMuffle();
+        }
     }
 
     private void ShowPickup()
@@ -223,16 +229,13 @@ public class DialogueHud : MonoBehaviour
     {
         if (AudioManager.Instance == null) return;
 
-        if (!followed)
-        {
-            AudioManager.Instance.PlayIgnoreSafe();
-            return;
-        }
+        bool tipWasTruth = tip == null || tip.isTruth;
+        bool correct = followed == tipWasTruth;
 
-        if (tip != null && tip.isTruth)
-            AudioManager.Instance.PlayCorrectFollow();
+        if (correct)
+            AudioManager.Instance.PlayCorrectChoice();
         else
-            AudioManager.Instance.PlayWrongFollow();
+            AudioManager.Instance.PlayWrongChoice();
     }
 
     private void HandleOutcome(bool correct)

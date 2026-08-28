@@ -22,6 +22,13 @@ public class GameFlowController : MonoBehaviour
     [Tooltip("Seconds to wait after the shift ends before showing the results panel.")]
     [SerializeField] private float delayBeforePanel = 2.5f;
 
+    [Header("Audio")]
+    [Tooltip("Background music to play during the driving shift (optional).")]
+    [SerializeField] private AudioClip gameplayMusic;
+
+    [Tooltip("Ambient loop to play during the driving shift (optional).")]
+    [SerializeField] private AudioClip ambientLoop;
+
     private bool _transitioning;
 
     private void Start()
@@ -39,6 +46,12 @@ public class GameFlowController : MonoBehaviour
         if (endShiftPanel == null)
             Debug.LogWarning("[GameFlowController] endShiftPanel is not assigned. " +
                              "Drag the EndShiftPanelController from the Canvas into this field.");
+
+        if (AudioManager.Instance != null)
+        {
+            if (gameplayMusic != null) AudioManager.Instance.PlayMusic(gameplayMusic);
+            if (ambientLoop != null)   AudioManager.Instance.PlayAmbient(ambientLoop);
+        }
     }
 
     private void OnDestroy()
@@ -55,6 +68,10 @@ public class GameFlowController : MonoBehaviour
         if (TripController.Instance == null || !TripController.Instance.ShiftOver) return;
 
         _transitioning = true;
+
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayShiftEnd();
+
         StartCoroutine(ShowPanelAfterDelay());
     }
 
