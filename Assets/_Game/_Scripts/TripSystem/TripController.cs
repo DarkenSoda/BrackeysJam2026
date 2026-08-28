@@ -101,6 +101,18 @@ public class TripController : MonoBehaviour
         if (!correct && NightManager.Instance != null)
             NightManager.Instance.AddTimePenalty(wrongChoicePenaltySeconds);
 
+        if (AudioManager.Instance != null)
+        {
+            if (correct)
+            {
+                AudioManager.Instance.PlayCorrectChoice();
+            }
+            else
+            {
+                AudioManager.Instance.PlayWrongChoice();
+            }
+        }
+
         OnOutcomeResolved?.Invoke(correct);
 
         if (ShiftOver) return;
@@ -146,6 +158,13 @@ public class TripController : MonoBehaviour
     {
         CurrentState = newState;
         debugState = newState;
+        
+        if (AudioManager.Instance != null)
+        {
+            if (newState == TripState.PICKUP) AudioManager.Instance.PlayPickup();
+            else if (newState == TripState.DROPOFF) AudioManager.Instance.PlayDropoff();
+        }
+        
         OnTripStateChanged?.Invoke(newState);
     }
 }

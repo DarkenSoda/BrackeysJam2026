@@ -58,6 +58,8 @@ public class SettingsPanelController : MonoBehaviour
 
     // ── Public API (called by MainMenuController) ─────────────────────────
 
+    public event System.Action OnClosed;
+
     public void Show()
     {
         SyncGaugesToSavedValues();
@@ -67,6 +69,7 @@ public class SettingsPanelController : MonoBehaviour
     public void Hide()
     {
         gameObject.SetActive(false);
+        OnClosed?.Invoke();
     }
 
     // ── Value changed callbacks ───────────────────────────────────────────
