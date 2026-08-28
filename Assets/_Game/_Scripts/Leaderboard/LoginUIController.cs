@@ -3,8 +3,6 @@ using TMPro;
 using UGSLeaderboardKit;
 using Unity.Services.Authentication;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LoginUIController : MonoBehaviour
@@ -14,8 +12,7 @@ public class LoginUIController : MonoBehaviour
     [SerializeField] private TMP_InputField nameInputField;
     [SerializeField] private Button enterButton;
 
-    const string HasNameKey = "UGSLeaderboard_HasSetName";
-    const string NextSceneName = "Leaderboard";
+    // HasSetName key is shared via LoginKeys in SceneLoader.cs
 
     async void Start()
     {
@@ -26,7 +23,7 @@ public class LoginUIController : MonoBehaviour
         nameInputField.onValueChanged.AddListener(ChangeSubmitButtonState);
 
         bool returningPlayer = AuthenticationService.Instance.IsSignedIn &&
-                                PlayerPrefs.GetInt(HasNameKey, 0) == 1 &&
+                                PlayerPrefs.GetInt(LoginKeys.HasSetName, 0) == 1 &&
                                 !string.IsNullOrEmpty(AuthenticationService.Instance.PlayerName);
 
         if (returningPlayer)
@@ -57,7 +54,7 @@ public class LoginUIController : MonoBehaviour
         try
         {
             await AuthenticationService.Instance.UpdatePlayerNameAsync(playerName);
-            PlayerPrefs.SetInt(HasNameKey, 1);
+            PlayerPrefs.SetInt(LoginKeys.HasSetName, 1);
             PlayerPrefs.Save();
 
             loginPanel.SetActive(false);
@@ -74,7 +71,8 @@ public class LoginUIController : MonoBehaviour
     }
     private void LoadNextScene()
     {
-        SceneManager.LoadScene(NextSceneName);
+        // After signing in, go to gameplay — not the leaderboard.
+        SceneLoader.LoadGameplay();
     }
 
     void SetBusy(bool busy)

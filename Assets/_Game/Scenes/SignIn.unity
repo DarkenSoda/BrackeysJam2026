@@ -254,6 +254,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3545206612920128859, guid: 2d0902ccdd643874c97f8b7ffa609d8e, type: 3}
+      propertyPath: m_CharacterLimit
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6020748621901458659, guid: 2d0902ccdd643874c97f8b7ffa609d8e, type: 3}
       propertyPath: m_Name
       value: LoginPanel

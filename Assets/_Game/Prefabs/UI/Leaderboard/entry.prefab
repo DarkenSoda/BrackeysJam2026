@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c9d42fe51e71e9d43a0b825b1f389929, type: 2}
+  m_sharedMaterial: {fileID: 6565610651678847646, guid: c9d42fe51e71e9d43a0b825b1f389929, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -204,8 +204,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c9d42fe51e71e9d43a0b825b1f389929, type: 2}
+  m_sharedMaterial: {fileID: 6565610651678847646, guid: c9d42fe51e71e9d43a0b825b1f389929, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -362,7 +362,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -3019424127853119141, guid: e9df5db102efd8b48b3efbabfa92bd9e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -397,7 +397,7 @@ MonoBehaviour:
   scoreText: {fileID: 1360501491535301534}
   background: {fileID: 9208416714379922281}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
-  currentPlayerColor: {r: 1, g: 0.92, b: 0.6, a: 1}
+  currentPlayerColor: {r: 0.76989096, g: 1, b: 0.6, a: 1}
 --- !u!1 &9113257286682262371
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,8 +467,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c9d42fe51e71e9d43a0b825b1f389929, type: 2}
+  m_sharedMaterial: {fileID: 6565610651678847646, guid: c9d42fe51e71e9d43a0b825b1f389929, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

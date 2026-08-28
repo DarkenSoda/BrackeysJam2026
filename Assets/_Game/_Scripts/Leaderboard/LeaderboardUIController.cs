@@ -14,7 +14,9 @@ public class LeaderboardUIController : MonoBehaviour
     [SerializeField] private GameObject leaderboardPanel;
     [SerializeField] private Transform scrollContentContainer;
     [SerializeField] private GameObject entryPrefab;
+    [Header("Navigation")]
     [SerializeField] private Button refreshButton;
+    [SerializeField] private Button backButton;
 
     [Header("Current Player Banner")]
     [SerializeField] private TMP_Text currentPlayerRankText;
@@ -27,6 +29,9 @@ public class LeaderboardUIController : MonoBehaviour
         if (refreshButton != null)
             refreshButton.onClick.AddListener(HandleRefreshButtonClicked);
 
+        if (backButton != null)
+            backButton.onClick.AddListener(SceneLoader.LoadMainMenu);
+
         Show();
     }
 
@@ -34,6 +39,9 @@ public class LeaderboardUIController : MonoBehaviour
     {
         if (refreshButton != null)
             refreshButton.onClick.RemoveListener(HandleRefreshButtonClicked);
+
+        if (backButton != null)
+            backButton.onClick.RemoveListener(SceneLoader.LoadMainMenu);
     }
 
     void HandleRefreshButtonClicked() => _ = RefreshAsync();
