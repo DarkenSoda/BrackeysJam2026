@@ -139,7 +139,8 @@ public class EndShiftPanelController : MonoBehaviour
         if (failStampTransform != null) failStampTransform.gameObject.SetActive(false);
         if (_activeStamp != null)
         {
-            _activeStamp.gameObject.SetActive(true);
+            // Keep it hidden during the number counting phase
+            _activeStamp.gameObject.SetActive(false);
             _activeStamp.localScale = Vector3.one * stampStartScale;
         }
 
@@ -204,7 +205,24 @@ public class EndShiftPanelController : MonoBehaviour
         if (_activeStamp == null) yield break;
 
         _activeStamp.localScale = Vector3.one * stampStartScale;
+        _activeStamp.gameObject.SetActive(true);
 
+        // Fade in using CanvasGroup
+        CanvasGroup cg = _activeStamp.GetComponent<CanvasGroup>();
+        if (cg == null) cg = _activeStamp.gameObject.AddComponent<CanvasGroup>();
+
+        cg.alpha = 0f;
+        float fadeDuration = 0.2f;
+        float fadeElapsed = 0f;
+        while (fadeElapsed < fadeDuration)
+        {
+            fadeElapsed += Time.deltaTime;
+            cg.alpha = Mathf.Clamp01(fadeElapsed / fadeDuration);
+            yield return null;
+        }
+        cg.alpha = 1f;
+
+        // Scale down (Slam)
         float elapsed = 0f;
         while (elapsed < stampDuration)
         {

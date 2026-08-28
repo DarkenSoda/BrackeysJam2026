@@ -2146,6 +2146,15 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
+      time: 0.3446756
+      value: 0.49995878
+      inSlope: 1.4894204
+      outSlope: 1.4894204
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
       time: 1
       value: 1
       inSlope: 0
@@ -2158,7 +2167,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   countDuration: 1.2
-  countEase: 5
+  countEase: 17
   shiftScoreLabel: {fileID: 319015446}
   faresLabel: {fileID: 1005929168}
   goodReadsLabel: {fileID: 392005809}
