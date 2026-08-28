@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1644f378346556548a1d2b8d4f35cb17, type: 3}
   m_Name: ShiftConfig
   m_EditorClassIdentifier: Assembly-CSharp::ShiftConfig
-  <RealShiftSeconds>k__BackingField: 60
+  <RealShiftSeconds>k__BackingField: 300
   <StartHour>k__BackingField: 20
   <StartMinute>k__BackingField: 0
   <EndHour>k__BackingField: 8

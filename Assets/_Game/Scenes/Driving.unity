@@ -517,9 +517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d68c1551c2ae3d4eba2de3e1bf9b832, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TripController
-  correctFollowTime: 1
-  ignoreTime: 2
-  wrongFollowTime: 3
+  wrongChoicePenaltySeconds: 30
   content: {fileID: 11400000, guid: 8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b, type: 2}
   encountersPerTrip: 4
   debugState: 0
@@ -1500,12 +1498,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -2360,7 +2358,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameClock
   shiftConfig: {fileID: 11400000, guid: c9b6e65a0c2b15940bba72229869701a, type: 2}
-  hoursElapsed: 0
 --- !u!4 &2051724593
 Transform:
   m_ObjectHideFlags: 0

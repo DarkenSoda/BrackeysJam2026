@@ -12,10 +12,8 @@ public class TripController : MonoBehaviour
 {
     public static TripController Instance { get; private set; }
 
-    [Header("Time costs (hours)")]
-    [SerializeField] private float correctFollowTime = 1f;
-    [SerializeField] private float ignoreTime = 2f;
-    [SerializeField] private float wrongFollowTime = 3f;
+    [Header("Time penalty (real seconds)")]
+    [SerializeField] private float wrongChoicePenaltySeconds = 30f;
 
     [Header("Content")]
     [SerializeField] private TaxiContent content;
@@ -97,13 +95,11 @@ public class TripController : MonoBehaviour
         RolledTip tip = CurrentTip;
         bool tipWasTruth = tip == null || tip.isTruth;
         bool correct = followed == tipWasTruth;
-        float timeCost = !followed ? ignoreTime : (correct ? correctFollowTime : wrongFollowTime);
-        Debug.Log($"Choice resolved — followed:{followed}, correct:{correct}, timeCost:{timeCost}h");
 
         LearnFact(tip);
 
-        if (NightManager.Instance != null)
-            NightManager.Instance.AddTimePenalty(timeCost);
+        if (!correct && NightManager.Instance != null)
+            NightManager.Instance.AddTimePenalty(wrongChoicePenaltySeconds);
 
         OnOutcomeResolved?.Invoke(correct);
 
