@@ -1,27 +1,52 @@
 using UnityEngine;
 
-/// <summary>
-/// Bridges TripController's trip events to DrivingController, so neither script needs
-/// to know about the other directly. Put this on the same GameObject as DrivingController
-/// (or anywhere in the scene — it just needs both singletons to exist by Start()).
-///
-/// Why this exists instead of editing TripController:
-/// TripController fires OnOutcomeResolved (per encounter) and OnTripStateChanged
-/// (PICKUP/ENCOUNTER/DROPOFF). Neither alone tells us "drive to the next junction now."
-/// This script combines them into StartDriving() / ArriveAtStop() calls.
-/// </summary>
 public class TripDrivingBridge : MonoBehaviour
 {
+    public static TripDrivingBridge Instance { get; private set; }
+
+    [Header("Visual buffer: how many pace-layer parallax cycles to drive before stopping for the next encounter")]
+    [SerializeField] private int minCyclesBeforeStop = 1;
+    [SerializeField] private int maxCyclesBeforeStop = 3;
+
+    private TripState? waitingToStopForState;
+    private int cyclesSeen;
+    private int cyclesNeeded;
+
+    /// <summary>The total number of pace-layer cycles the car will drive before stopping for the current encounter.</summary>
+    public int CyclesNeededForCurrentStop => cyclesNeeded;
+
+    public event System.Action OnEncounterDrivingStarted;
+    public event System.Action OnEncounterAboutToStop;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
+
     private void Start()
     {
         if (TripController.Instance != null)
         {
             TripController.Instance.OnTripStateChanged += HandleTripStateChanged;
-            TripController.Instance.OnOutcomeResolved += HandleOutcomeResolved;
+            HandleTripStateChanged(TripController.Instance.CurrentState);
         }
         else
         {
             Debug.LogWarning("TripDrivingBridge: TripController.Instance is null at Start(). Check script execution order.");
+        }
+
+        if (BackgroundLoopController.Instance != null)
+        {
+            BackgroundLoopController.Instance.OnLayerCycled += HandleLayerCycled;
+        }
+        else
+        {
+            Debug.LogWarning("TripDrivingBridge: BackgroundLoopController.Instance is null at Start(). Check script execution order.");
         }
     }
 
@@ -30,7 +55,11 @@ public class TripDrivingBridge : MonoBehaviour
         if (TripController.Instance != null)
         {
             TripController.Instance.OnTripStateChanged -= HandleTripStateChanged;
-            TripController.Instance.OnOutcomeResolved -= HandleOutcomeResolved;
+        }
+
+        if (BackgroundLoopController.Instance != null)
+        {
+            BackgroundLoopController.Instance.OnLayerCycled -= HandleLayerCycled;
         }
     }
 
@@ -39,32 +68,49 @@ public class TripDrivingBridge : MonoBehaviour
         switch (newState)
         {
             case TripState.PICKUP:
-                // Customer just got in — car should already be stopped here.
-                DrivingController.Instance?.ArriveAtStop();
-                break;
-
             case TripState.ENCOUNTER:
-                // First encounter of the trip starting right after pickup -> pull away.
-                DrivingController.Instance?.StartDriving();
+                BeginDrivingBuffer(newState);
                 break;
 
             case TripState.DROPOFF:
-                // Trip finished (either naturally or via ForceEndCurrentFare) -> stop.
+                waitingToStopForState = null;
                 DrivingController.Instance?.ArriveAtStop();
                 break;
         }
     }
 
-    private void HandleOutcomeResolved(bool correct)
+    private void BeginDrivingBuffer(TripState forState)
     {
-        // Don't blindly start driving here. AddTimePenalty (called just above this in
-        // TripController.ResolveChoice) can synchronously trigger shift-end -> DROPOFF
-        // -> ArriveAtStop() BEFORE this event fires. If that happened, TripController's
-        // CurrentState will already be DROPOFF by the time we get here, and we must NOT
-        // override that stop by driving again.
-        if (TripController.Instance != null && TripController.Instance.CurrentState == TripState.ENCOUNTER)
+        waitingToStopForState = null;
+        cyclesSeen = 0;
+        cyclesNeeded = Random.Range(minCyclesBeforeStop, maxCyclesBeforeStop + 1); 
+        waitingToStopForState = forState;
+        DrivingController.Instance?.StartDriving();
+
+        if (forState == TripState.ENCOUNTER)
+            OnEncounterDrivingStarted?.Invoke();
+    }
+
+    private void HandleLayerCycled(bool isPaceLayer)
+    {
+        if (waitingToStopForState == null) return;
+        if (!isPaceLayer) return;
+
+        cyclesSeen++;
+        if (cyclesSeen < cyclesNeeded) return;
+
+        TripState waitedFor = waitingToStopForState.Value;
+        waitingToStopForState = null;
+
+        if (TripController.Instance == null) return;
+
+        TripState current = TripController.Instance.CurrentState;
+        if (current == waitedFor || current == TripState.DROPOFF)
         {
-            DrivingController.Instance?.StartDriving();
+            if (waitedFor == TripState.ENCOUNTER)
+                OnEncounterAboutToStop?.Invoke();
+
+            DrivingController.Instance?.ArriveAtStop();
         }
     }
 }

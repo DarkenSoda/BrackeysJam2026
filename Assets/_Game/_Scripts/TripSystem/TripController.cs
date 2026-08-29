@@ -37,7 +37,7 @@ public class TripController : MonoBehaviour
     }
 
     public event System.Action<TripState> OnTripStateChanged;
-    public event System.Action<bool> OnOutcomeResolved; // true = correct choice
+    public event System.Action<bool> OnOutcomeResolved; 
 
     private void Awake()
     {
@@ -57,9 +57,6 @@ public class TripController : MonoBehaviour
             if (content == null)
                 content = Resources.Load<TaxiContent>("TaxiContent");
         }
-
-        if (GetComponent<DialogueHud>() == null)
-            gameObject.AddComponent<DialogueHud>();
     }
 
     private void Start()
@@ -100,8 +97,6 @@ public class TripController : MonoBehaviour
 
         if (!correct && NightManager.Instance != null)
             NightManager.Instance.AddTimePenalty(wrongChoicePenaltySeconds);
-
-        // Audio is already played instantly by DialogueHud on button click.
 
         OnOutcomeResolved?.Invoke(correct);
 
@@ -149,11 +144,8 @@ public class TripController : MonoBehaviour
         CurrentState = newState;
         debugState = newState;
 
-        if (AudioManager.Instance != null)
-        {
-            if (newState == TripState.PICKUP) AudioManager.Instance.PlayPickup();
-            else if (newState == TripState.DROPOFF) AudioManager.Instance.PlayDropoff();
-        }
+        // The AudioManager calls that used to be here were deleted[cite: 6]. 
+        // They are now handled perfectly on-time by DialogueHud.cs!
 
         OnTripStateChanged?.Invoke(newState);
     }
