@@ -15,18 +15,38 @@ MonoBehaviour:
   displayName: Garbage collector
   lieChance: 0.25
   truthLines:
-  - "yeah i know {dest}. crew cuts through there before dawn. you wanna {dir}. you'll pass {a}, then {b} after that. don't miss the curb. i've seen enough 4ams to mean it."
-  - "{dest}? short version. you wanna {dir}. i dump by {a} on that route. you'll pass {b} right after. bins are already out. you can follow the truck if you want. you don't want."
-  - "you're going to {dest}. good. you wanna {dir}. look for {a}, that's the tell. then {b} shows up and you're on it. skip the long way. i've done the long way. it's worse."
-  - "hold up. {dest}. you wanna {dir}. we roll past {a} every morning. {b} is next, you can't fake that stretch. boss times us on it. i am never late. don't make me late talking."
-  - "yeah. {dest}. you wanna {dir}. you'll go by {a}, then {b} sits on the corner like it owns the block. that's the one. i'm not drawing you a map. my gloves are full."
-  - "seen it. {dest}. you wanna {dir}. past {a}, then {b}. that's the route when the street's still wet. if someone tells you different they don't work nights. i do."
+  - yeah i know {dest}. crew cuts through there before dawn. you wanna {dir}. you'll
+    pass {a}, then {b} after that. don't miss the curb. i've seen enough 4ams to
+    mean it.
+  - '{dest}? short version. you wanna {dir}. i dump by {a} on that route. you''ll
+    pass {b} right after. bins are already out. you can follow the truck if you want.
+    you don''t want.'
+  - you're going to {dest}. good. you wanna {dir}. look for {a}, that's the tell.
+    then {b} shows up and you're on it. skip the long way. i've done the long way.
+    it's worse.
+  - hold up. {dest}. you wanna {dir}. we roll past {a} every morning. {b} is next,
+    you can't fake that stretch. boss times us on it. i am never late. don't make
+    me late talking.
+  - yeah. {dest}. you wanna {dir}. you'll go by {a}, then {b} sits on the corner
+    like it owns the block. that's the one. i'm not drawing you a map. my gloves
+    are full.
+  - seen it. {dest}. you wanna {dir}. past {a}, then {b}. that's the route when the
+    street's still wet. if someone tells you different they don't work nights. i
+    do.
   lieLines:
-  - "yeah i know {dest}. you wanna {dir}. look for {a} by the curb. i mix routes sometimes. don't quote me. the truck's waiting."
-  - "thought they moved {dest}. you wanna {dir}. {a} was on that street last week. could still be. i'm half asleep. that's your problem now."
-  - "skip the long way if you want {dest}. you wanna {dir}. toward {a}. boss had us that way once. felt wrong then too. still. that's what i got."
-  - "{dest}. you wanna {dir}. {a} was overflowing last time i went by. maybe that's the block. maybe i'm thinking of tuesday. it's all tuesday after 3."
-  - "don't quote me. if you want {dest} you wanna {dir}. look for {a}. i mix east and west when i'm tired. i am tired. good luck."
-  - "yeah. {dest}. you wanna {dir}. {a} was on that street. i think. crew argued about it. i didn't win. i'm still telling you this anyway."
+  - yeah i know {dest}. you wanna {dir}. look for {a} by the curb. i mix routes sometimes.
+    don't quote me. the truck's waiting.
+  - thought they moved {dest}. you wanna {dir}. {a} was on that street last week.
+    could still be. i'm half asleep. that's your problem now.
+  - skip the long way if you want {dest}. you wanna {dir}. toward {a}. boss had us
+    that way once. felt wrong then too. still. that's what i got.
+  - '{dest}. you wanna {dir}. {a} was overflowing last time i went by. maybe that''s
+    the block. maybe i''m thinking of tuesday. it''s all tuesday after 3.'
+  - don't quote me. if you want {dest} you wanna {dir}. look for {a}. i mix east
+    and west when i'm tired. i am tired. good luck.
+  - yeah. {dest}. you wanna {dir}. {a} was on that street. i think. crew argued about
+    it. i didn't win. i'm still telling you this anyway.
   truthSprite: {fileID: 756624137716838530, guid: 0920a900d81d16f41a82ce560c4ac372, type: 3}
   lieSprite: {fileID: -4095120870801554156, guid: 1312551409954c24ab10e2f709572ef9, type: 3}
+  spawnSound: {fileID: 8300000, guid: 5ceaf7e5424617242afc7f91c648893f, type: 3}
+  spawnVolume: 0.5

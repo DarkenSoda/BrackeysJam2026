@@ -96,17 +96,20 @@ public class MainMenuController : MonoBehaviour
 
     private void OnPlayClicked()
     {
-        // Skip sign-in for returning players; send new players to enter a display name.
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayMenuClick();
         SceneLoader.LoadGameplay();
     }
 
     private void OnLeaderboardClicked()
     {
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayMenuClick();
         SceneLoader.LoadLeaderboard();
     }
 
     private void OnSettingsClicked()
     {
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayMenuClick();
+
         if (settingsPanel == null)
         {
             Debug.LogWarning("[MainMenuController] settingsPanel is not assigned in the Inspector.");
@@ -127,6 +130,7 @@ public class MainMenuController : MonoBehaviour
 
     private void OnQuitClicked()
     {
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayMenuClick();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else

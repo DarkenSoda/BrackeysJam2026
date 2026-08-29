@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8000229181790901386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2683685581354483630}
+  - component: {fileID: 2167761813088342190}
+  m_Layer: 0
+  m_Name: Audio Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2683685581354483630
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8000229181790901386}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 672.3341, y: 575.3001, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2167761813088342190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8000229181790901386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be16252e1ea25974396415ac8013db51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  defaultMusicVolume: 0.1
+  defaultSFXVolume: 1
+  defaultAmbientVolume: 0
+  minPitch: 0.95
+  maxPitch: 1.05
+  correctChoiceClip: {fileID: 8300000, guid: 6164e06c3d22d1c4a877e21d7e59d7ed, type: 3}
+  wrongChoiceClip: {fileID: 8300000, guid: a8f8b2c856942cb4185134f5bfc5cba7, type: 3}
+  pickupClip: {fileID: 8300000, guid: 03d8d479506fbc04aa3e3358638cbb83, type: 3}
+  dropoffClip: {fileID: 8300000, guid: 39c9d67fde5894048b817bf0414d899d, type: 3}
+  dialogueMuffleClip: {fileID: 0}
+  shiftEndClip: {fileID: 0}
+  menuClickClip: {fileID: 8300000, guid: 5d2d6793c9409b94da59df59a53c68bf, type: 3}
+  backClickClip: {fileID: 8300000, guid: 5cd43b53565f06548bdd27d7f14d5907, type: 3}
+  stampFirstClip: {fileID: 8300000, guid: 27255042eaad02f419a5132bd9341a7a, type: 3}
+  stampSecondClip: {fileID: 8300000, guid: 54b3f1b331edd744f9730279bc7239bf, type: 3}

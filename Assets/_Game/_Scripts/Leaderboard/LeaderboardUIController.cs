@@ -30,7 +30,7 @@ public class LeaderboardUIController : MonoBehaviour
             refreshButton.onClick.AddListener(HandleRefreshButtonClicked);
 
         if (backButton != null)
-            backButton.onClick.AddListener(SceneLoader.LoadMainMenu);
+            backButton.onClick.AddListener(HandleBackButtonClicked);
 
         Show();
     }
@@ -41,10 +41,20 @@ public class LeaderboardUIController : MonoBehaviour
             refreshButton.onClick.RemoveListener(HandleRefreshButtonClicked);
 
         if (backButton != null)
-            backButton.onClick.RemoveListener(SceneLoader.LoadMainMenu);
+            backButton.onClick.RemoveListener(HandleBackButtonClicked);
     }
 
-    void HandleRefreshButtonClicked() => _ = RefreshAsync();
+    void HandleRefreshButtonClicked() 
+    {
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayMenuClick();
+        _ = RefreshAsync();
+    }
+
+    void HandleBackButtonClicked()
+    {
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayBackClick();
+        SceneLoader.LoadMainMenu();
+    }
 
     public async void Show()
     {

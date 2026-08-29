@@ -15,18 +15,33 @@ MonoBehaviour:
   displayName: Con artist
   lieChance: 0.85
   truthLines:
-  - "listen. you want {dest}. rare honest minute. you wanna {dir}. you'll pass {a}, then {b} shows up on the right. that's when you're close. i'm not even charging you for this."
-  - "ok you caught me in a good mood. {dest}. you wanna {dir}. {a}'s real. {b} too. even i use that stretch. then i'm late. which i am. go."
-  - "no bit. {dest}. you wanna {dir}. you pass {a}, then {b}. that's the one. i don't do charity twice. this is the twice. don't make me regret a personality."
-  - "friend. {dest}. you wanna {dir}. look for {a}. then {b}. i'm out. if i start smiling after this, ignore me. this part was true. the smiling will not be."
-  - "even i use {a} when i need {dest}. you wanna {dir}. then {b}. that's the play. i'm late too. rare overlap. take it before i start selling you a watch."
-  - "listen. {dest}. you wanna {dir}. you'll pass {a}, then {b}. i'm not drawing a map because maps are how people trace you. just drive. and forget my face."
+  - listen. you want {dest}. rare honest minute. you wanna {dir}. you'll pass {a},
+    then {b} shows up on the right. that's when you're close. i'm not even charging
+    you for this.
+  - ok you caught me in a good mood. {dest}. you wanna {dir}. {a}'s real. {b} too.
+    even i use that stretch. then i'm late. which i am. go.
+  - no bit. {dest}. you wanna {dir}. you pass {a}, then {b}. that's the one. i don't
+    do charity twice. this is the twice. don't make me regret a personality.
+  - friend. {dest}. you wanna {dir}. look for {a}. then {b}. i'm out. if i start
+    smiling after this, ignore me. this part was true. the smiling will not be.
+  - even i use {a} when i need {dest}. you wanna {dir}. then {b}. that's the play.
+    i'm late too. rare overlap. take it before i start selling you a watch.
+  - listen. {dest}. you wanna {dir}. you'll pass {a}, then {b}. i'm not drawing a
+    map because maps are how people trace you. just drive. and forget my face.
   lieLines:
-  - "trust me. {dest} is easy. you wanna {dir}. everybody who's anybody uses {a}. i'd bet my watch. you want me to draw you a map or what."
-  - "guaranteed. if you want {dest} you wanna {dir}. look for {a}. gps is a scam. this is local knowledge. you're welcome. now move before it closes."
-  - "don't overthink. {dest}. you wanna {dir}. {a} is the secret locals hide. i just came from there. hundred percent. would i lie. don't answer that."
-  - "special shortcut. {dest}. you wanna {dir}. {a}. don't tell the other cabs. i'd bet my watch. the watch is very real. the time on it is more of a vibe."
-  - "friend. you wanna {dir} or you'll miss {dest}. {a} is the whole play. i just came from there. my shoes are still wet from the... don't worry about it. go."
-  - "would i lie? {dest}. you wanna {dir}. look for {a}. now move before it closes. everybody who's anybody knows this. you want to be anybody. i can tell."
+  - trust me. {dest} is easy. you wanna {dir}. everybody who's anybody uses {a}.
+    i'd bet my watch. you want me to draw you a map or what.
+  - guaranteed. if you want {dest} you wanna {dir}. look for {a}. gps is a scam.
+    this is local knowledge. you're welcome. now move before it closes.
+  - don't overthink. {dest}. you wanna {dir}. {a} is the secret locals hide. i just
+    came from there. hundred percent. would i lie. don't answer that.
+  - special shortcut. {dest}. you wanna {dir}. {a}. don't tell the other cabs. i'd
+    bet my watch. the watch is very real. the time on it is more of a vibe.
+  - friend. you wanna {dir} or you'll miss {dest}. {a} is the whole play. i just
+    came from there. my shoes are still wet from the... don't worry about it. go.
+  - would i lie? {dest}. you wanna {dir}. look for {a}. now move before it closes.
+    everybody who's anybody knows this. you want to be anybody. i can tell.
   truthSprite: {fileID: 4880836638466080163, guid: 5de7e0fae497a5b4790c82f9066db281, type: 3}
   lieSprite: {fileID: -6478061663042548129, guid: 447d6e9318db69242801406a10e76092, type: 3}
+  spawnSound: {fileID: 8300000, guid: f448ecef5c68ea14d9b51fe6496d7e1c, type: 3}
+  spawnVolume: 0.5
