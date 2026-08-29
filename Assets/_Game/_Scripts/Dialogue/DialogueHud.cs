@@ -130,7 +130,7 @@ public class DialogueHud : MonoBehaviour
             ShowTip();
     }
 
-    private void ShowPickup()
+private void ShowPickup()
     {
         RolledTrip trip = TripController.Instance.CurrentTrip;
         shownTip = null;
@@ -140,8 +140,13 @@ public class DialogueHud : MonoBehaviour
         RefreshScratchpad(trip);
         SetPortrait(null);
         ShowButtons(cont: true, follow: false, ignore: false);
-    }
 
+        // Play the door open/pickup sound exactly when the passenger gets in!
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayPickup();
+        }
+    }
     private void ShowTip()
     {
         RolledTip tip = TripController.Instance.CurrentTip;
@@ -162,7 +167,7 @@ public class DialogueHud : MonoBehaviour
         }
     }
 
-    private void ShowDropoff()
+private void ShowDropoff()
     {
         RolledTrip trip = TripController.Instance.CurrentTrip;
         shownTip = null;
@@ -178,10 +183,15 @@ public class DialogueHud : MonoBehaviour
         SetPortrait(null);
         ShowButtons(cont: false, follow: false, ignore: false);
 
+        // Play the door close/dropoff sound exactly when they leave!
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayDropoff();
+        }
+
         if (!TripController.Instance.ShiftOver)
             StartCoroutine(NextFareSoon());
     }
-
     private void RefreshScratchpad(RolledTrip trip)
     {
         if (scratchpadText == null) return;

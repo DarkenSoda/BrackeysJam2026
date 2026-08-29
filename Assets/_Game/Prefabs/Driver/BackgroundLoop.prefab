@@ -1953,18 +1953,6 @@ MonoBehaviour:
     segmentWidth: 18.84031
     isDrivingPaceLayer: 0
     scrollOffset: 0
-  - name: 
-    segments:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    speedMultiplier: 0.6
-    segmentWidth: 1
-    isDrivingPaceLayer: 0
-    scrollOffset: 0
   - name: Road
     segments:
     - {fileID: 7074463456589477482}
