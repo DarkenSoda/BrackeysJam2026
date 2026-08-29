@@ -1,18 +1,12 @@
 using UnityEngine;
 
-/// <summary>
-/// One parallax layer (sky, skyline, mid buildings, road...). Each layer has its own
-/// speed multiplier — farther layers should use smaller multipliers.
-/// Attach one of these per layer GameObject; assign 2 tiling copies of the sprite as children,
-/// OR use a single Renderer with a material that supports texture offset (simpler for a jam).
-/// </summary>
 [System.Serializable]
 public class ParallaxLayer
 {
-    public string name;                 // just for inspector readability
-    public Transform[] segments;        // 2+ copies placed end-to-end for seamless looping
-    public float speedMultiplier = 1f;  // relative scroll speed for this layer
-    public float segmentWidth = 20f;    // world-space width of one segment, for wrap-around
+    public string name;                 
+    public Transform[] segments;        
+    public float speedMultiplier = 1f;  
+    public float segmentWidth = 20f;    
 
     [Tooltip("Tick this on exactly ONE layer (usually Road) — that layer's wrap cycles " +
              "are what TripDrivingBridge counts for the 1-3 cycle driving buffer. " +
@@ -22,15 +16,6 @@ public class ParallaxLayer
     [HideInInspector] public float scrollOffset;
 }
 
-/// <summary>
-/// Scrolls parallax layers based on DrivingController's current speed (event-driven,
-/// no direct reference needed) and tints the sky toward dawn based on the night timer.
-///
-/// Setup:
-///   - Add one ParallaxLayer entry per visual layer (sky/skyline/buildings/road).
-///   - Each layer needs 2+ segment Transforms placed side by side so they can wrap.
-///   - Assign skyRenderer (or a SpriteRenderer/Material) for the dawn tint lerp.
-/// </summary>
 public class BackgroundLoopController : MonoBehaviour
 {
     public static BackgroundLoopController Instance { get; private set; }
@@ -43,17 +28,28 @@ public class BackgroundLoopController : MonoBehaviour
 
     [Header("Dawn tint")]
     [SerializeField] private SpriteRenderer skyRenderer;
-    [SerializeField] private Color nightColor = new Color(0.09f, 0.09f, 0.22f); // deep blue/purple
-    [SerializeField] private Color dawnColor = new Color(0.95f, 0.75f, 0.65f);  // pale dawn wash
+    [SerializeField] private Color nightColor = new Color(0.09f, 0.09f, 0.22f); 
+    [SerializeField] private Color dawnColor = new Color(0.95f, 0.75f, 0.65f);  
 
     [Header("Dawn progress source")]
-    [Tooltip("Same GameClock instance NightManager uses. Drag the scene's GameClock object here " +
-             "(NightManager's reference is private, so we need our own).")]
     [SerializeField] private GameClock gameClock;
 
-    /// <summary>Fired once each time a segment wraps around (completes one loop cycle).
-    /// isPaceLayer is true only for the layer marked isDrivingPaceLayer in the inspector.</summary>
     public event System.Action<bool> OnLayerCycled;
+
+    public float PaceLayerFrameDelta { get; private set; }
+
+    /// <summary>Returns the segment width of the active pace layer so we can calculate exact driving distances.</summary>
+    public float PaceLayerSegmentWidth 
+    {
+        get 
+        {
+            foreach (var layer in layers) 
+            {
+                if (layer.isDrivingPaceLayer) return layer.segmentWidth;
+            }
+            return 20f; // Fallback
+        }
+    }
 
     private float currentSpeed01;
 
@@ -81,8 +77,6 @@ public class BackgroundLoopController : MonoBehaviour
 
     private void Start()
     {
-        // In case DrivingController.Instance wasn't set yet in OnEnable (script order),
-        // try subscribing again here.
         if (DrivingController.Instance != null)
             DrivingController.Instance.OnSpeedChanged += HandleSpeedChanged;
     }
@@ -94,20 +88,24 @@ public class BackgroundLoopController : MonoBehaviour
 
     private void Update()
     {
-        // Dawn tint tracks the shift clock directly — independent of whether the car
-        // is currently moving, since time still passes while stopped at an encounter.
         if (gameClock != null)
         {
             SetDawnProgress(gameClock.NormalizedTime);
         }
 
-        if (currentSpeed01 <= 0f) return;
+        if (currentSpeed01 <= 0f)
+        {
+            PaceLayerFrameDelta = 0f;
+            return;
+        }
 
         float delta = baseScrollSpeed * currentSpeed01 * Time.deltaTime;
 
         foreach (var layer in layers)
         {
             ScrollLayer(layer, delta * layer.speedMultiplier);
+            if (layer.isDrivingPaceLayer)
+                PaceLayerFrameDelta = delta * layer.speedMultiplier;
         }
     }
 
@@ -120,14 +118,12 @@ public class BackgroundLoopController : MonoBehaviour
             seg.position += Vector3.left * delta;
         }
 
-        // Wrap: any segment fully off the left edge gets moved to the right end of the chain.
         foreach (var seg in layer.segments)
         {
             if (seg.position.x <= -layer.segmentWidth)
             {
                 float rightmostX = GetRightmostX(layer);
                 seg.position = new Vector3(rightmostX + layer.segmentWidth, seg.position.y, seg.position.z);
-                Debug.Log($"[BackgroundLoop] Layer '{layer.name}' cycled. isDrivingPaceLayer={layer.isDrivingPaceLayer}");
                 OnLayerCycled?.Invoke(layer.isDrivingPaceLayer);
             }
         }
@@ -141,10 +137,6 @@ public class BackgroundLoopController : MonoBehaviour
         return max;
     }
 
-    /// <summary>
-    /// Call every frame (or subscribe to a GameClock progress event, whichever Mahmoud exposes)
-    /// with 0 = start of night, 1 = dawn, to lerp the sky color.
-    /// </summary>
     public void SetDawnProgress(float t)
     {
         if (skyRenderer == null) return;

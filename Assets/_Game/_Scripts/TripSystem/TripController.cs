@@ -58,8 +58,11 @@ public class TripController : MonoBehaviour
                 content = Resources.Load<TaxiContent>("TaxiContent");
         }
 
-        if (GetComponent<DialogueHud>() == null)
-            gameObject.AddComponent<DialogueHud>();
+        // NOTE: DialogueHud is no longer auto-created here. It's manually built and wired
+        // in the scene (real Canvas, dragged-in references) — auto-adding a blank one on
+        // this GameObject would create a second, unwired DialogueHud that crashes on
+        // ShowPickup()/ShowTip() with a NullReferenceException the moment it tries to use
+        // its never-assigned Text/Button fields.
     }
 
     private void Start()
