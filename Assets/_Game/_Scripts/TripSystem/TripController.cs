@@ -104,17 +104,7 @@ public class TripController : MonoBehaviour
         if (!correct && NightManager.Instance != null)
             NightManager.Instance.AddTimePenalty(wrongChoicePenaltySeconds);
 
-        if (AudioManager.Instance != null)
-        {
-            if (correct)
-            {
-                AudioManager.Instance.PlayCorrectChoice();
-            }
-            else
-            {
-                AudioManager.Instance.PlayWrongChoice();
-            }
-        }
+        // Audio is already played instantly by DialogueHud on button click.
 
         OnOutcomeResolved?.Invoke(correct);
 
@@ -161,13 +151,13 @@ public class TripController : MonoBehaviour
     {
         CurrentState = newState;
         debugState = newState;
-        
+
         if (AudioManager.Instance != null)
         {
             if (newState == TripState.PICKUP) AudioManager.Instance.PlayPickup();
             else if (newState == TripState.DROPOFF) AudioManager.Instance.PlayDropoff();
         }
-        
+
         OnTripStateChanged?.Invoke(newState);
     }
 }

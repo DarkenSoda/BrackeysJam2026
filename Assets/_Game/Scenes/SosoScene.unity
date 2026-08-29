@@ -612,17 +612,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be16252e1ea25974396415ac8013db51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
-  musicVolume: 1
-  sfxVolume: 1
-  ambientVolume: 0.6
+  defaultMusicVolume: 1
+  defaultSFXVolume: 1
+  defaultAmbientVolume: 0.6
   minPitch: 0.95
   maxPitch: 1.05
-  correctFollowClip: {fileID: 0}
-  wrongFollowClip: {fileID: 0}
-  ignoreSafeClip: {fileID: 0}
+  correctChoiceClip: {fileID: 0}
+  wrongChoiceClip: {fileID: 0}
   pickupClip: {fileID: 0}
   dropoffClip: {fileID: 0}
-  obstacleHitClip: {fileID: 0}
+  dialogueMuffleClip: {fileID: 0}
+  shiftEndClip: {fileID: 0}
+  menuClickClip: {fileID: 0}
+  backClickClip: {fileID: 0}
+  stampFirstClip: {fileID: 0}
+  stampSecondClip: {fileID: 0}
 --- !u!1 &1530461103
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,7 +765,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1678055231
 SpriteRenderer:
   serializedVersion: 2

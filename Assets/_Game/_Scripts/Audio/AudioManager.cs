@@ -47,6 +47,14 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip dialogueMuffleClip;
     [SerializeField] private AudioClip shiftEndClip;
 
+    [Header("UI SFX")]
+    [SerializeField] private AudioClip menuClickClip;
+    [SerializeField] private AudioClip backClickClip;
+
+    [Header("End Shift SFX")]
+    [SerializeField] private AudioClip stampFirstClip;
+    [SerializeField] private AudioClip stampSecondClip;
+
     // ── Runtime volumes (loaded from PlayerPrefs) ─────────────────────────
     private float musicVolume;
     private float sfxVolume;
@@ -139,11 +147,11 @@ public class AudioManager : MonoBehaviour
     // ==================== SFX / Stingers ====================
 
     /// <summary>Plays a 2D one-shot SFX with a small random pitch variation.</summary>
-    public void PlaySFX(AudioClip clip)
+    public void PlaySFX(AudioClip clip, float volumeScale = 1f)
     {
         if (sfxSource == null || clip == null) return;
         sfxSource.pitch = Random.Range(minPitch, maxPitch);
-        sfxSource.PlayOneShot(clip, sfxVolume);
+        sfxSource.PlayOneShot(clip, sfxVolume * volumeScale);
     }
 
     // ── Night Shift Taxi helpers ─────────────────────────────────────────
@@ -154,8 +162,24 @@ public class AudioManager : MonoBehaviour
     public void PlayDialogueMuffle() => PlaySFX(dialogueMuffleClip);
     public void PlayShiftEnd() => PlaySFX(shiftEndClip);
 
+    public void PlayMenuClick() => PlaySFX(menuClickClip);
+    public void PlayBackClick() => PlaySFX(backClickClip);
+
+    public void PlayStampDoubleSFX()
+    {
+        if (stampFirstClip != null) PlaySFX(stampFirstClip);
+        if (stampSecondClip != null)
+            StartCoroutine(PlayClipAfterDelay(stampSecondClip, stampFirstClip != null ? stampFirstClip.length : 0f));
+    }
+
+    private System.Collections.IEnumerator PlayClipAfterDelay(AudioClip clip, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        PlaySFX(clip);
+    }
+
     // ==================== NPC ====================
-    public void PlayNPC(AudioClip clip) => PlaySFX(clip);
+    public void PlayNPC(AudioClip clip, float volumeScale = 1f) => PlaySFX(clip, volumeScale);
 
     // ==================== Ambient ====================
 

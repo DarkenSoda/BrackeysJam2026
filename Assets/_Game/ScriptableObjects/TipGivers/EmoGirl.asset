@@ -15,18 +15,34 @@ MonoBehaviour:
   displayName: Emo girl
   lieChance: 0.45
   truthLines:
-  - "{dest}? whatever. you wanna {dir}. you'll see {a}. then {b}. try not to hit it. i am not repeating {b}. can i go now."
-  - "if you even care. {dest}. you wanna {dir}. {a}'s right there. {b} after. cool. that's the whole speech. i'm not your gps. i'm just stuck at this light."
-  - "yeah. {dest} isn't a vibe but you wanna {dir}. look for {a}. and {b}. fine. you're welcome i guess. don't make it a thing."
-  - "cool. you want {dest}. you wanna {dir}. past {a}, then {b}. i walk that when i miss the last train. which is always. so i know. unfortunately."
-  - "ugh. {dest}. you wanna {dir}. {a}. then {b}. that's it. i'm not drawing it in the fog on your window. my eyeliner is expensive. relatively."
-  - "fine. {dest}. you wanna {dir}. you'll pass {a}, then {b} shows up like it wants attention. that's when you're close. i cannot believe i helped a cab. don't tell anyone."
+  - '{dest}? whatever. you wanna {dir}. you''ll see {a}. then {b}. try not to hit
+    it. i am not repeating {b}. can i go now.'
+  - if you even care. {dest}. you wanna {dir}. {a}'s right there. {b} after. cool.
+    that's the whole speech. i'm not your gps. i'm just stuck at this light.
+  - yeah. {dest} isn't a vibe but you wanna {dir}. look for {a}. and {b}. fine. you're
+    welcome i guess. don't make it a thing.
+  - cool. you want {dest}. you wanna {dir}. past {a}, then {b}. i walk that when
+    i miss the last train. which is always. so i know. unfortunately.
+  - ugh. {dest}. you wanna {dir}. {a}. then {b}. that's it. i'm not drawing it in
+    the fog on your window. my eyeliner is expensive. relatively.
+  - fine. {dest}. you wanna {dir}. you'll pass {a}, then {b} shows up like it wants
+    attention. that's when you're close. i cannot believe i helped a cab. don't tell
+    anyone.
   lieLines:
-  - "{dest} i guess. you wanna {dir}. look for {a}. or don't. not my night. if it's wrong that's a you problem. maps are a construct anyway."
-  - "sure. you wanna {dir} if you want {dest}. look for {a}. everyone goes that way. sheep. i'm not saying i go that way. i'm saying they do. there's a difference. maybe."
-  - "idk. {dest}. you wanna {dir}. {a} sounded right. i heard it from a guy with a worse haircut than yours. no offense. some offense. go."
-  - "everyone goes that way for {dest}. you wanna {dir}. {a} too. if it's wrong i will not lose sleep. i don't sleep. that's unrelated."
-  - "yeah whatever. {dest}. you wanna {dir}. {a}. i am done talking. that was already too many words. you're welcome. or don't be."
-  - "sure. {dest}. you wanna {dir}. look for {a}. i think. i was half listening when someone said it. i am half listening now. this is consistent of me."
+  - '{dest} i guess. you wanna {dir}. look for {a}. or don''t. not my night. if it''s
+    wrong that''s a you problem. maps are a construct anyway.'
+  - sure. you wanna {dir} if you want {dest}. look for {a}. everyone goes that way.
+    sheep. i'm not saying i go that way. i'm saying they do. there's a difference.
+    maybe.
+  - idk. {dest}. you wanna {dir}. {a} sounded right. i heard it from a guy with a
+    worse haircut than yours. no offense. some offense. go.
+  - everyone goes that way for {dest}. you wanna {dir}. {a} too. if it's wrong i
+    will not lose sleep. i don't sleep. that's unrelated.
+  - yeah whatever. {dest}. you wanna {dir}. {a}. i am done talking. that was already
+    too many words. you're welcome. or don't be.
+  - sure. {dest}. you wanna {dir}. look for {a}. i think. i was half listening when
+    someone said it. i am half listening now. this is consistent of me.
   truthSprite: {fileID: -7119072624119840826, guid: a5da3a4df6eeeb34da1f5bb0bac43dc6, type: 3}
   lieSprite: {fileID: 1291112415131268255, guid: 7212159bfae07fc4aa2d0162d5c624e4, type: 3}
+  spawnSound: {fileID: 8300000, guid: 2451f6851aa105e42a05335b4922d22a, type: 3}
+  spawnVolume: 1.2

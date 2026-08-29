@@ -47,6 +47,8 @@ public class LoginUIController : MonoBehaviour
 
     private async void SubmitNameAndLogin()
     {
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayMenuClick();
+
         string playerName = nameInputField.text;
         if (string.IsNullOrEmpty(playerName)) return;
 

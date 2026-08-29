@@ -15,18 +15,36 @@ MonoBehaviour:
   displayName: Kid with a lollipop
   lieChance: 0.15
   truthLines:
-  - "are you going to {dest}? i know that one. you wanna {dir}. i saw {a} from the bus. then {b} after. mom said that's how we get there. i counted the lights. don't tell her i talked to a car."
-  - "easy. {dest}. you wanna {dir}. {a} is on that block, i know it. then you see {b}. my school trip went past both. i wasn't supposed to look out the window. i looked anyway."
-  - "oh! {dest}! you wanna {dir}. there's {a}, and {b} too. don't go the scary street. this way is nicer. the lollipop is grape. that isn't a clue. i just wanted to say."
-  - "i know {a}. if you want {dest} you wanna {dir}. you'll see {b} after. i wasn't supposed to talk to cars. but you asked. sort of. the window is down. that counts."
-  - "yeah. {dest}. you wanna {dir}. then you see {a}, and {b}. i counted the lights by {a} last week. mom said i did good. i am doing good again. bye."
-  - "wait. {dest}. you wanna {dir}. look for {a}. then {b} is next. that's the one with the... the thing. i forgot the thing. but i didn't forget the street. promise."
+  - are you going to {dest}? i know that one. you wanna {dir}. i saw {a} from the
+    bus. then {b} after. mom said that's how we get there. i counted the lights.
+    don't tell her i talked to a car.
+  - easy. {dest}. you wanna {dir}. {a} is on that block, i know it. then you see
+    {b}. my school trip went past both. i wasn't supposed to look out the window.
+    i looked anyway.
+  - oh! {dest}! you wanna {dir}. there's {a}, and {b} too. don't go the scary street.
+    this way is nicer. the lollipop is grape. that isn't a clue. i just wanted to
+    say.
+  - i know {a}. if you want {dest} you wanna {dir}. you'll see {b} after. i wasn't
+    supposed to talk to cars. but you asked. sort of. the window is down. that counts.
+  - yeah. {dest}. you wanna {dir}. then you see {a}, and {b}. i counted the lights
+    by {a} last week. mom said i did good. i am doing good again. bye.
+  - wait. {dest}. you wanna {dir}. look for {a}. then {b} is next. that's the one
+    with the... the thing. i forgot the thing. but i didn't forget the street. promise.
   lieLines:
-  - "um. {dest}? i think you wanna {dir}. {a} was there. my friend said so. my friend lies about snacks though. so. maybe still go?"
-  - "i wasn't supposed to talk to cars. but. if you want {dest} you wanna {dir}. look for {a}. that's the one. i think. the lollipop's in my eye. not really. kinda."
-  - "wait. {dest}. you wanna {dir}. {a} was on that block. maybe. i get blocks mixed up because they all have trash. not in a mean way. in a city way."
-  - "my friend said you wanna {dir} if you want {dest}, and look for {a}. my friend is eight. i am also eight. we are very sure. adults are less sure. that's what mom says."
-  - "maybe you wanna {dir} if you want {dest}. {a} anyway. that's the one. i could be thinking of a different {a}. there are two in my head. i picked this one."
-  - "um. {dest}. you wanna {dir}. {a}. bye. wait come back. i said {a}. that's all i remember. also grape. not a street. the candy."
+  - um. {dest}? i think you wanna {dir}. {a} was there. my friend said so. my friend
+    lies about snacks though. so. maybe still go?
+  - i wasn't supposed to talk to cars. but. if you want {dest} you wanna {dir}. look
+    for {a}. that's the one. i think. the lollipop's in my eye. not really. kinda.
+  - wait. {dest}. you wanna {dir}. {a} was on that block. maybe. i get blocks mixed
+    up because they all have trash. not in a mean way. in a city way.
+  - my friend said you wanna {dir} if you want {dest}, and look for {a}. my friend
+    is eight. i am also eight. we are very sure. adults are less sure. that's what
+    mom says.
+  - maybe you wanna {dir} if you want {dest}. {a} anyway. that's the one. i could
+    be thinking of a different {a}. there are two in my head. i picked this one.
+  - um. {dest}. you wanna {dir}. {a}. bye. wait come back. i said {a}. that's all
+    i remember. also grape. not a street. the candy.
   truthSprite: {fileID: -7119072624119840826, guid: a5da3a4df6eeeb34da1f5bb0bac43dc6, type: 3}
   lieSprite: {fileID: 1291112415131268255, guid: 7212159bfae07fc4aa2d0162d5c624e4, type: 3}
+  spawnSound: {fileID: 8300000, guid: 2451f6851aa105e42a05335b4922d22a, type: 3}
+  spawnVolume: 1.2

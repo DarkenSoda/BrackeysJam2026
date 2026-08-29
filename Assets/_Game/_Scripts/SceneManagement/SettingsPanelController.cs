@@ -68,6 +68,7 @@ public class SettingsPanelController : MonoBehaviour
 
     public void Hide()
     {
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayBackClick();
         gameObject.SetActive(false);
         OnClosed?.Invoke();
     }

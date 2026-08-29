@@ -235,6 +235,9 @@ public class EndShiftPanelController : MonoBehaviour
         }
 
         _activeStamp.localScale = Vector3.one * stampEndScale;
+        
+        // Play double stamp SFX on impact
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayStampDoubleSFX();
     }
 
     // ── Silent score submit ───────────────────────────────────────────────

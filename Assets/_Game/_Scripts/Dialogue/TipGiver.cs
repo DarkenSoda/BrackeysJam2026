@@ -16,4 +16,9 @@ public class TipGiver : ScriptableObject
     [Header("Portraits")]
     public Sprite truthSprite;
     public Sprite lieSprite;
+
+    [Header("Audio")]
+    public AudioClip spawnSound;
+    [Range(0f, 2f)]
+    public float spawnVolume = 1f;
 }

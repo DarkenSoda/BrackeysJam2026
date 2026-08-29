@@ -109,7 +109,7 @@ public class DialogueHud : MonoBehaviour
                 break;
         }
 
-        if (AudioManager.Instance != null && 
+        if (AudioManager.Instance != null &&
             (state == TripState.PICKUP || state == TripState.ENCOUNTER || state == TripState.DROPOFF))
         {
             AudioManager.Instance.PlayDialogueMuffle();
@@ -155,6 +155,11 @@ public class DialogueHud : MonoBehaviour
         ShowButtons(cont: false, follow: true, ignore: true);
         HideFlash();
         RefreshClock();
+
+        if (tip != null && tip.giver != null && tip.giver.spawnSound != null && AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayNPC(tip.giver.spawnSound, tip.giver.spawnVolume);
+        }
     }
 
     private void ShowDropoff()
@@ -293,9 +298,18 @@ public class DialogueHud : MonoBehaviour
         bool correct = followed == tipWasTruth;
 
         if (correct)
+        {
             AudioManager.Instance.PlayCorrectChoice();
+            if (ShockWaveManager.Instance != null)
+                ShockWaveManager.Instance.PlayCorrectVFX();
+        }
+
         else
+        {
             AudioManager.Instance.PlayWrongChoice();
+            if (ShockWaveManager.Instance != null)
+                ShockWaveManager.Instance.PlayWrongVFX();
+        }
     }
 
     private void HandleOutcome(bool correct)
