@@ -41,7 +41,7 @@ MonoBehaviour:
     bet... i don't have money. i would bet this shoe. it is not a matching shoe.
   - bro. {dest}. you wanna {dir}. {a}. that's the whole map. i drew it in the air.
     did you see the air. you missed the air. just go.
-  truthSprite: {fileID: -9041726990724665488, guid: 3ee6d5929c360424da6f9cba616748ab, type: 3}
-  lieSprite: {fileID: 6210443671484711363, guid: 9c6f3c117854cfa4e9a3d9ec22ed6b95, type: 3}
+  truthSprite: {fileID: -1288479230768560328, guid: cce0f186350257243a2156b8fb772c6b, type: 3}
+  lieSprite: {fileID: -1288479230768560328, guid: cce0f186350257243a2156b8fb772c6b, type: 3}
   spawnSound: {fileID: 8300000, guid: dd924bae7c92f9e49a80050f6605b306, type: 3}
   spawnVolume: 0.5
