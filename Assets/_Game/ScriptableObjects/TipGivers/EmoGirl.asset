@@ -44,5 +44,5 @@ MonoBehaviour:
     someone said it. i am half listening now. this is consistent of me.
   truthSprite: {fileID: -7119072624119840826, guid: a5da3a4df6eeeb34da1f5bb0bac43dc6, type: 3}
   lieSprite: {fileID: 1291112415131268255, guid: 7212159bfae07fc4aa2d0162d5c624e4, type: 3}
-  spawnSound: {fileID: 8300000, guid: 2451f6851aa105e42a05335b4922d22a, type: 3}
+  spawnSound: {fileID: 8300000, guid: 6d42b8a8bc97e5b478891dc42937b933, type: 3}
   spawnVolume: 1.2

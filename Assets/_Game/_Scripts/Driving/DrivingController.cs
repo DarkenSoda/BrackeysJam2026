@@ -77,14 +77,23 @@ public class DrivingController : MonoBehaviour
             debugSpeed01 = CurrentSpeed01;
             OnSpeedChanged?.Invoke(CurrentSpeed01);
 
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.SetMotorSpeed(CurrentSpeed01);
+            }
+
             if (CurrentState == DrivingState.Accelerating && CurrentSpeed01 >= speedTarget - 0.01f)
             {
+                CurrentSpeed01 = speedTarget;
+                OnSpeedChanged?.Invoke(CurrentSpeed01);
+                if (AudioManager.Instance != null) AudioManager.Instance.SetMotorSpeed(CurrentSpeed01);
                 SetState(DrivingState.Cruising);
             }
             else if (CurrentState == DrivingState.Braking && CurrentSpeed01 <= speedTarget + 0.01f)
             {
                 CurrentSpeed01 = 0f;
                 OnSpeedChanged?.Invoke(0f);
+                if (AudioManager.Instance != null) AudioManager.Instance.SetMotorSpeed(0f);
                 SetState(DrivingState.Idle);
                 OnArrivedAtStop?.Invoke();
             }

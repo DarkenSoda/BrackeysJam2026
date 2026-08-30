@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be16252e1ea25974396415ac8013db51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
-  defaultMusicVolume: 0.1
-  defaultSFXVolume: 1
+  defaultMusicVolume: 0.7
+  defaultSFXVolume: 0.8
   defaultAmbientVolume: 0
   minPitch: 0.95
   maxPitch: 1.05
@@ -53,9 +53,20 @@ MonoBehaviour:
   wrongChoiceClip: {fileID: 8300000, guid: a8f8b2c856942cb4185134f5bfc5cba7, type: 3}
   pickupClip: {fileID: 8300000, guid: 03d8d479506fbc04aa3e3358638cbb83, type: 3}
   dropoffClip: {fileID: 8300000, guid: 39c9d67fde5894048b817bf0414d899d, type: 3}
-  dialogueMuffleClip: {fileID: 0}
-  shiftEndClip: {fileID: 0}
   menuClickClip: {fileID: 8300000, guid: 5d2d6793c9409b94da59df59a53c68bf, type: 3}
   backClickClip: {fileID: 8300000, guid: 5cd43b53565f06548bdd27d7f14d5907, type: 3}
+  mainMenuMusic: {fileID: 8300000, guid: 6bc6570204d32a4419957f0d6e31c2a2, type: 3}
+  gameplayMusicIntro: {fileID: 8300000, guid: 36b9fce8e9da3fa41a4787662a49178b, type: 3}
+  gameplayMusicLoop: {fileID: 8300000, guid: 33f6ec49b5a15104da5139afe9b45080, type: 3}
+  outroMusic: {fileID: 8300000, guid: 98eb489d625749e4c8964ce6840b501e, type: 3}
+  gameplayMusicDelay: 2
   stampFirstClip: {fileID: 8300000, guid: 27255042eaad02f419a5132bd9341a7a, type: 3}
   stampSecondClip: {fileID: 8300000, guid: 54b3f1b331edd744f9730279bc7239bf, type: 3}
+  scoreCountingClip: {fileID: 8300000, guid: e7f9cfe26d41945469ed2257a5b7f064, type: 3}
+  dialogueMusicMultiplier: 0.7
+  motorClip: {fileID: 8300000, guid: 44c88279a36966147b6df7fa99ebfeba, type: 3}
+  motorMinPitch: 0.5
+  motorMaxPitch: 1.5
+  motorMinVolume: 0.1
+  motorMaxVolume: 0.5
+  motorVolumeMultiplier: 0.8

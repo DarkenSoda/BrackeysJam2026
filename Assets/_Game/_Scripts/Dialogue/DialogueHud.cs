@@ -2,22 +2,35 @@ using System.Collections;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class DialogueHud : MonoBehaviour
 {
-    [SerializeField] private Text speakerText;
-    [SerializeField] private Text bodyText;
-    [SerializeField] private Text scratchpadText;
-    [SerializeField] private Button continueButton;
+    [Header("Scratchpad")]
+    [SerializeField] private TextMeshProUGUI scratchpadText;
+
+    [Header("Clock")]
+    [SerializeField] private TextMeshProUGUI clockHoursText;
+    [SerializeField] private TextMeshProUGUI clockMinutesText;
+    [SerializeField] private TextMeshProUGUI clockAmPmText;
+
+    [Header("NPC Dialogue")]
+    [SerializeField] private GameObject npcDialogueParent;
+    [SerializeField] private TextMeshProUGUI npcSpeakerText;
+    [SerializeField] private TextMeshProUGUI npcBodyText;
+    [SerializeField] private Image npcPortrait;
     [SerializeField] private Button followButton;
     [SerializeField] private Button ignoreButton;
-    [SerializeField] private Image flash;
-    [SerializeField] private Image portrait;
-    [SerializeField] private Text clockText;
 
-    [Header("Group these under ONE parent object: SpeakerText + BodyText + Portrait " +
-            "(NOT scratchpad — scratchpad must stay visible independently per spec)")]
-    [SerializeField] private GameObject dialoguePanel;
+    [Header("Passenger Dialogue")]
+    [SerializeField] private GameObject passengerDialogueParent;
+    [SerializeField] private TextMeshProUGUI passengerSpeakerText;
+    [SerializeField] private TextMeshProUGUI passengerBodyText;
+    [SerializeField] private Button continueButton;
+    [SerializeField] private Image passengerImage;
+
+    [Header("Effects")]
+    [SerializeField] private Image flash;
 
     private bool waitingOnFlash;
     private RolledTip shownTip;
@@ -65,6 +78,7 @@ public class DialogueHud : MonoBehaviour
             TripController.Instance.OnOutcomeResolved -= HandleOutcome;
             TripController.Instance.OnOutcomeResolved += HandleOutcome;
 
+            RefreshScratchpad(null);
             HandleState(TripController.Instance.CurrentState);
         }
         else
@@ -108,12 +122,6 @@ public class DialogueHud : MonoBehaviour
                 ShowDropoff();
                 break;
         }
-
-        if (AudioManager.Instance != null &&
-            (state == TripState.PICKUP || state == TripState.ENCOUNTER || state == TripState.DROPOFF))
-        {
-            AudioManager.Instance.PlayDialogueMuffle();
-        }
     }
 
     private void HandleCarArrived()
@@ -130,36 +138,46 @@ public class DialogueHud : MonoBehaviour
             ShowTip();
     }
 
-private void ShowPickup()
+    private void ShowPickup()
     {
         RolledTrip trip = TripController.Instance.CurrentTrip;
         shownTip = null;
-        SetPanelVisible(true);
-        SetSpeaker("Passenger");
-        bodyText.text = trip != null ? trip.customerLine : "...";
+
+        SetPassengerDialogueVisible(true);
+        SetNPCDialogueVisible(false);
+
+        if (passengerSpeakerText != null) passengerSpeakerText.text = "Passenger";
+        if (passengerBodyText != null) passengerBodyText.text = trip != null ? trip.customerLine : "...";
+
         RefreshScratchpad(trip);
-        SetPortrait(null);
         ShowButtons(cont: true, follow: false, ignore: false);
+        if (AudioManager.Instance != null) AudioManager.Instance.SetDialogueDucking(true);
 
         // Play the door open/pickup sound exactly when the passenger gets in!
         if (AudioManager.Instance != null)
         {
             AudioManager.Instance.PlayPickup();
         }
+        passengerImage.gameObject.SetActive(true);
     }
     private void ShowTip()
     {
         RolledTip tip = TripController.Instance.CurrentTip;
         RolledTrip trip = TripController.Instance.CurrentTrip;
         shownTip = tip;
-        SetPanelVisible(true);
-        SetSpeaker(tip != null && tip.giver != null ? tip.giver.displayName : "Someone");
-        bodyText.text = tip != null ? tip.line : "...";
-        RefreshScratchpad(trip);
+
+        SetPassengerDialogueVisible(false);
+        SetNPCDialogueVisible(true);
+
+        if (npcSpeakerText != null) npcSpeakerText.text = tip != null && tip.giver != null ? tip.giver.displayName : "Someone";
+        if (npcBodyText != null) npcBodyText.text = tip != null ? tip.line : "...";
         SetPortrait(tip != null && tip.giver != null ? tip.giver.truthSprite : null);
+
+        RefreshScratchpad(trip);
         ShowButtons(cont: false, follow: true, ignore: true);
         HideFlash();
         RefreshClock();
+        if (AudioManager.Instance != null) AudioManager.Instance.SetDialogueDucking(true);
 
         if (tip != null && tip.giver != null && tip.giver.spawnSound != null && AudioManager.Instance != null)
         {
@@ -167,44 +185,49 @@ private void ShowPickup()
         }
     }
 
-private void ShowDropoff()
+    private void ShowDropoff()
     {
         RolledTrip trip = TripController.Instance.CurrentTrip;
         shownTip = null;
-        SetPanelVisible(true);
-        SetSpeaker("Passenger");
 
-        if (TripController.Instance.ShiftOver)
-            bodyText.text = "that's dawn. park it.";
-        else
-            bodyText.text = trip != null ? trip.dropoffLine : "we're here.";
+        SetPassengerDialogueVisible(true);
+        SetNPCDialogueVisible(false);
+
+        if (passengerSpeakerText != null) passengerSpeakerText.text = "Passenger";
+
+        if (passengerBodyText != null)
+        {
+            if (TripController.Instance.ShiftOver)
+                passengerBodyText.text = "that's dawn. park it.";
+            else
+                passengerBodyText.text = trip != null ? trip.dropoffLine : "we're here.";
+        }
 
         RefreshScratchpad(trip);
-        SetPortrait(null);
-        ShowButtons(cont: false, follow: false, ignore: false);
+        ShowButtons(cont: true, follow: false, ignore: false);
+        if (AudioManager.Instance != null) AudioManager.Instance.SetDialogueDucking(true);
 
         // Play the door close/dropoff sound exactly when they leave!
         if (AudioManager.Instance != null)
         {
             AudioManager.Instance.PlayDropoff();
         }
+        passengerImage.gameObject.SetActive(false);
 
-        if (!TripController.Instance.ShiftOver)
-            StartCoroutine(NextFareSoon());
     }
     private void RefreshScratchpad(RolledTrip trip)
     {
         if (scratchpadText == null) return;
-        if (trip == null || trip.scratchpad == null)
-        {
-            scratchpadText.text = "";
-            return;
-        }
 
         var sb = new StringBuilder();
-        sb.Append("scratchpad\n");
-        for (int i = 0; i < trip.scratchpad.Count; i++)
-            sb.Append("- ").Append(trip.scratchpad[i]).Append('\n');
+        sb.Append("Scratchpad\n\n");
+
+        if (trip != null && trip.scratchpad != null)
+        {
+            for (int i = 0; i < trip.scratchpad.Count; i++)
+                sb.Append("- ").Append(trip.scratchpad[i]).Append('\n');
+        }
+
         scratchpadText.text = sb.ToString();
     }
 
@@ -216,40 +239,57 @@ private void ShowDropoff()
 
     private void RefreshClock()
     {
-        if (clockText == null) return;
         if (clock == null)
             clock = GameClock.Instance;
-        clockText.text = clock != null ? clock.ClockLabel : "";
-    }
 
-    private void SetSpeaker(string name)
-    {
-        if (speakerText != null)
-            speakerText.text = name;
+        if (clockHoursText != null)
+            clockHoursText.text = clock != null ? clock.ClockHours : "";
+
+        if (clockMinutesText != null)
+            clockMinutesText.text = clock != null ? clock.ClockMinutes : "";
+
+        if (clockAmPmText != null)
+            clockAmPmText.text = clock != null ? clock.ClockAmPm : "";
     }
 
     private void SetPortrait(Sprite sprite)
     {
-        // We leave the portrait field assigned in the Inspector to avoid errors, 
-        // but we force it to stay disabled so it never spawns in the HUD.
-        if (portrait != null)
+        if (npcPortrait == null) return;
+
+        if (sprite != null)
         {
-            portrait.enabled = false;
+            npcPortrait.sprite = sprite;
+            npcPortrait.enabled = true;
+        }
+        else
+        {
+            npcPortrait.enabled = false;
         }
     }
 
-    private void SetPanelVisible(bool visible)
+    private void SetNPCDialogueVisible(bool visible)
     {
-        if (dialoguePanel != null)
-            dialoguePanel.SetActive(visible);
+        if (npcDialogueParent != null)
+            npcDialogueParent.SetActive(visible);
+    }
+
+    private void SetPassengerDialogueVisible(bool visible)
+    {
+        if (passengerDialogueParent != null)
+            passengerDialogueParent.SetActive(visible);
     }
 
     private void HideDialogueContent()
     {
-        SetPanelVisible(false);
-        if (speakerText != null) speakerText.text = "";
-        if (bodyText != null) bodyText.text = "";
+        SetNPCDialogueVisible(false);
+        SetPassengerDialogueVisible(false);
+
+        if (npcSpeakerText != null) npcSpeakerText.text = "";
+        if (npcBodyText != null) npcBodyText.text = "";
+        if (passengerSpeakerText != null) passengerSpeakerText.text = "";
+        if (passengerBodyText != null) passengerBodyText.text = "";
         SetPortrait(null);
+        if (AudioManager.Instance != null) AudioManager.Instance.SetDialogueDucking(false);
     }
 
     private void ShowButtons(bool cont, bool follow, bool ignore)
@@ -261,11 +301,27 @@ private void ShowDropoff()
 
     public void OnContinue()
     {
-        if (TripController.Instance.CurrentState != TripState.PICKUP) return;
-
         HideDialogueContent();
         ShowButtons(cont: false, follow: false, ignore: false);
-        TripController.Instance.BeginEncounters();
+
+        if (TripController.Instance.CurrentState == TripState.PICKUP)
+        {
+            TripController.Instance.BeginEncounters();
+        }
+        else if (TripController.Instance.CurrentState == TripState.DROPOFF)
+        {
+            RefreshScratchpad(null);
+
+            if (!TripController.Instance.ShiftOver)
+            {
+                TripController.Instance.TryStartNextFare();
+            }
+            else
+            {
+                GameFlowController gfc = FindAnyObjectByType<GameFlowController>();
+                if (gfc != null) gfc.TriggerEndShift();
+            }
+        }
     }
 
     public void OnFollow()
@@ -341,8 +397,7 @@ private void ShowDropoff()
 
     private IEnumerator NextFareSoon()
     {
-        yield return new WaitForSeconds(1.4f);
-        if (TripController.Instance != null && !TripController.Instance.ShiftOver)
-            TripController.Instance.TryStartNextFare();
+        // This is no longer used, as we rely on OnContinue for dropoffs now
+        yield break;
     }
 }

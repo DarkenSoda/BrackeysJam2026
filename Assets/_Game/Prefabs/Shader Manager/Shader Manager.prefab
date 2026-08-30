@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4030207640586900788}
   - component: {fileID: 8844238547542871423}
   - component: {fileID: 7050174347171807180}
-  - component: {fileID: 1004344390077953746}
   m_Layer: 0
   m_Name: Shader Manager
   m_TagString: Untagged
@@ -27,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6346940834288396867}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
@@ -110,15 +109,3 @@ MonoBehaviour:
   endDistance: 1
   correctMaterial: {fileID: 2100000, guid: fa9891d4af0dfa84fb7da192fffc6690, type: 2}
   wrongMaterial: {fileID: 2100000, guid: fa9891d4af0dfa84fb7da192fffc6690, type: 2}
---- !u!114 &1004344390077953746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6346940834288396867}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebcc7aeb91424dc4488b47f8b255fd32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ShockWaveTestInput

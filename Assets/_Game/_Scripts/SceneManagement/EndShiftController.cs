@@ -146,6 +146,8 @@ public class EndShiftPanelController : MonoBehaviour
 
         gameObject.SetActive(true);
 
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayOutroMusic();
+
         // Submit score silently in the background while the sequence plays.
         SubmitScoreAsync(fares);
 
@@ -158,14 +160,18 @@ public class EndShiftPanelController : MonoBehaviour
 
     private IEnumerator ShowSequence(int shiftScore, int fares, int goodReads, int wrongTurns)
     {
+        if (AudioManager.Instance != null) AudioManager.Instance.PlayScoreCounting();
+
+        float durationPerLabel = countDuration / 4f;
+
         // 1. Score
-        yield return TweenLabel(shiftScoreLabel, shiftScore);
+        yield return TweenLabel(shiftScoreLabel, shiftScore, durationPerLabel);
         // 2. Fares
-        yield return TweenLabel(faresLabel, fares);
+        yield return TweenLabel(faresLabel, fares, durationPerLabel);
         // 3. Good Reads
-        yield return TweenLabel(goodReadsLabel, goodReads);
+        yield return TweenLabel(goodReadsLabel, goodReads, durationPerLabel);
         // 4. Wrong Turns
-        yield return TweenLabel(wrongTurnsLabel, wrongTurns);
+        yield return TweenLabel(wrongTurnsLabel, wrongTurns, durationPerLabel);
 
         // 5. Stamp slams down.
         yield return PlayStampAnimation();
@@ -177,7 +183,7 @@ public class EndShiftPanelController : MonoBehaviour
     /// Tweens a TMP label from 0 to <paramref name="target"/> using LitMotion,
     /// then yields until the tween is complete before returning control to the sequence.
     /// </summary>
-    private IEnumerator TweenLabel(TMP_Text label, int target)
+    private IEnumerator TweenLabel(TMP_Text label, int target, float duration)
     {
         if (label == null) yield break;
 
@@ -187,7 +193,7 @@ public class EndShiftPanelController : MonoBehaviour
 
         bool done = false;
 
-        LMotion.Create(0, target, countDuration)
+        LMotion.Create(0, target, duration)
             .WithEase(countEase)
             .WithOnComplete(() => done = true)
             .Bind(v =>

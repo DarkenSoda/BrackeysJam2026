@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class NightManager : MonoBehaviour
 {
@@ -28,9 +29,13 @@ public class NightManager : MonoBehaviour
         gameClock.OnShiftEnd -= HandleShiftEnd;
     }
 
+    /// <summary>Fired whenever a time penalty is applied. Arg = real seconds consumed.</summary>
+    public static event Action<float> OnPenaltyApplied;
+
     public void AddTimePenalty(float penaltySeconds)
     {
         gameClock.AdvanceTime(penaltySeconds);
+        OnPenaltyApplied?.Invoke(penaltySeconds);
     }
 
     private void HandleShiftEnd()

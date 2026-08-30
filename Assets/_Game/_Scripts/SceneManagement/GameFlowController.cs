@@ -19,13 +19,10 @@ public class GameFlowController : MonoBehaviour
     [Tooltip("The EndShiftPanelController inside this scene's Canvas.")]
     [SerializeField] private EndShiftPanelController endShiftPanel;
 
-    [Tooltip("Seconds to wait after the shift ends before showing the results panel.")]
-    [SerializeField] private float delayBeforePanel = 2.5f;
+    // [Tooltip("Seconds to wait after the shift ends before showing the results panel.")]
+    // [SerializeField] private float delayBeforePanel = 2.5f;
 
     [Header("Audio")]
-    [Tooltip("Background music to play during the driving shift (optional).")]
-    [SerializeField] private AudioClip gameplayMusic;
-
     [Tooltip("Ambient loop to play during the driving shift (optional).")]
     [SerializeField] private AudioClip ambientLoop;
 
@@ -49,8 +46,8 @@ public class GameFlowController : MonoBehaviour
 
         if (AudioManager.Instance != null)
         {
-            if (gameplayMusic != null) AudioManager.Instance.PlayMusic(gameplayMusic);
-            if (ambientLoop != null)   AudioManager.Instance.PlayAmbient(ambientLoop);
+            AudioManager.Instance.PlayGameplayMusic();
+            if (ambientLoop != null) AudioManager.Instance.PlayAmbient(ambientLoop);
         }
     }
 
@@ -62,22 +59,14 @@ public class GameFlowController : MonoBehaviour
 
     private void HandleTripStateChanged(TripState state)
     {
-        // ShiftOver is already true when ForceEndCurrentFare() triggers DROPOFF.
-        if (_transitioning) return;
-        if (state != TripState.DROPOFF) return;
-        if (TripController.Instance == null || !TripController.Instance.ShiftOver) return;
-
-        _transitioning = true;
-
-        if (AudioManager.Instance != null)
-            AudioManager.Instance.PlayShiftEnd();
-
-        StartCoroutine(ShowPanelAfterDelay());
+        // We no longer trigger the panel here based on time.
+        // DialogueHud will call TriggerEndShift() when the player clicks Continue on the final dropoff dialogue.
     }
 
-    private IEnumerator ShowPanelAfterDelay()
+    public void TriggerEndShift()
     {
-        yield return new WaitForSeconds(delayBeforePanel);
+        if (_transitioning) return;
+        _transitioning = true;
 
         if (endShiftPanel != null)
             endShiftPanel.Show();

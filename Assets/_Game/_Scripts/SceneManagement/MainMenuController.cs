@@ -41,9 +41,6 @@ public class MainMenuController : MonoBehaviour
     [Header("Settings Panel")]
     [SerializeField] private SettingsPanelController settingsPanel;
 
-    [Header("Audio")]
-    [Tooltip("Music to play in the main menu (optional).")]
-    [SerializeField] private AudioClip menuMusic;
 
     private void Awake()
     {
@@ -67,12 +64,27 @@ public class MainMenuController : MonoBehaviour
         // Start menu music & ensure ambient sounds from gameplay are stopped
         if (AudioManager.Instance != null)
         {
-            if (menuMusic != null) AudioManager.Instance.PlayMusic(menuMusic);
+            AudioManager.Instance.PlayMainMenuMusic();
             AudioManager.Instance.StopAmbient();
+            AudioManager.Instance.StopMotor();
         }
 
         // Silently pre-warm UGS so the Leaderboard/SignIn scenes load instantly.
         _ = UGSBootstrap.InitializeAsync();
+
+        // Add hover tween effects to the buttons
+        AddHoverTween(playButton);
+        AddHoverTween(leaderboardButton);
+        AddHoverTween(settingsButton);
+        AddHoverTween(quitButton);
+    }
+
+    private void AddHoverTween(Button btn)
+    {
+        if (btn != null && btn.gameObject.GetComponent<UIHoverTween>() == null)
+        {
+            btn.gameObject.AddComponent<UIHoverTween>();
+        }
     }
 
     private void OnDestroy()

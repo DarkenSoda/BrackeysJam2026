@@ -15,6 +15,7 @@ public class RolledTrip
     public List<string> scratchpad = new List<string>();
     public string customerLine;
     public string dropoffLine;
+    public Sprite passengerSprite;
     public List<RolledTip> tips = new List<RolledTip>();
 }
 

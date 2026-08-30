@@ -4,6 +4,7 @@ using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 /// <summary>
 /// Adds a button to DialogueHud's Inspector: "Build Dialogue Canvas".
@@ -64,16 +65,20 @@ public class DialogueHudEditor : Editor
         scaler.referenceResolution = new Vector2(1920, 1080);
         canvasGo.AddComponent<GraphicRaycaster>();
 
-        Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-        if (font == null)
-            font = Resources.GetBuiltinResource<Font>("Arial.ttf");
-
-        Text scratchpadText = MakeText(canvasGo.transform, "ScratchpadText", new Vector2(0.02f, 0.55f), new Vector2(0.28f, 0.96f), 22, TextAnchor.UpperLeft, font);
-        Text clockText = MakeText(canvasGo.transform, "ClockText", new Vector2(0.32f, 0.90f), new Vector2(0.72f, 0.99f), 32, TextAnchor.MiddleCenter, font);
-        clockText.fontStyle = FontStyle.Bold;
-        Text speakerText = MakeText(canvasGo.transform, "SpeakerText", new Vector2(0.32f, 0.78f), new Vector2(0.72f, 0.88f), 26, TextAnchor.LowerLeft, font);
-        speakerText.fontStyle = FontStyle.Bold;
-        Text bodyText = MakeText(canvasGo.transform, "BodyText", new Vector2(0.32f, 0.22f), new Vector2(0.72f, 0.78f), 22, TextAnchor.UpperLeft, font);
+        TextMeshProUGUI scratchpadText = MakeText(canvasGo.transform, "ScratchpadText", new Vector2(0.02f, 0.55f), new Vector2(0.28f, 0.96f), 22, TextAlignmentOptions.TopLeft);
+        
+        TextMeshProUGUI clockHoursText = MakeText(canvasGo.transform, "ClockHoursText", new Vector2(0.32f, 0.90f), new Vector2(0.42f, 0.99f), 32, TextAlignmentOptions.Center);
+        clockHoursText.fontStyle = FontStyles.Bold;
+        
+        TextMeshProUGUI clockMinutesText = MakeText(canvasGo.transform, "ClockMinutesText", new Vector2(0.44f, 0.90f), new Vector2(0.54f, 0.99f), 32, TextAlignmentOptions.Center);
+        clockMinutesText.fontStyle = FontStyles.Bold;
+        
+        TextMeshProUGUI clockAmPmText = MakeText(canvasGo.transform, "ClockAmPmText", new Vector2(0.56f, 0.90f), new Vector2(0.66f, 0.99f), 32, TextAlignmentOptions.Center);
+        clockAmPmText.fontStyle = FontStyles.Bold;
+        
+        TextMeshProUGUI speakerText = MakeText(canvasGo.transform, "SpeakerText", new Vector2(0.32f, 0.78f), new Vector2(0.72f, 0.88f), 26, TextAlignmentOptions.BottomLeft);
+        speakerText.fontStyle = FontStyles.Bold;
+        TextMeshProUGUI bodyText = MakeText(canvasGo.transform, "BodyText", new Vector2(0.32f, 0.22f), new Vector2(0.72f, 0.78f), 22, TextAlignmentOptions.TopLeft);
 
         var portraitGo = new GameObject("Portrait");
         Undo.RegisterCreatedObjectUndo(portraitGo, "Create Portrait");
@@ -84,9 +89,9 @@ public class DialogueHudEditor : Editor
         Stretch(portraitGo.GetComponent<RectTransform>(), new Vector2(0.74f, 0.22f), new Vector2(0.98f, 0.88f));
         portrait.enabled = false;
 
-        Button continueButton = MakeButton(canvasGo.transform, "ContinueButton", "continue", new Vector2(0.72f, 0.08f), new Vector2(0.96f, 0.18f), font);
-        Button followButton = MakeButton(canvasGo.transform, "FollowButton", "follow", new Vector2(0.32f, 0.08f), new Vector2(0.54f, 0.18f), font);
-        Button ignoreButton = MakeButton(canvasGo.transform, "IgnoreButton", "ignore", new Vector2(0.56f, 0.08f), new Vector2(0.70f, 0.18f), font);
+        Button continueButton = MakeButton(canvasGo.transform, "ContinueButton", "continue", new Vector2(0.72f, 0.08f), new Vector2(0.96f, 0.18f));
+        Button followButton = MakeButton(canvasGo.transform, "FollowButton", "follow", new Vector2(0.32f, 0.08f), new Vector2(0.54f, 0.18f));
+        Button ignoreButton = MakeButton(canvasGo.transform, "IgnoreButton", "ignore", new Vector2(0.56f, 0.08f), new Vector2(0.70f, 0.18f));
 
         var flashGo = new GameObject("FlashOverlay");
         Undo.RegisterCreatedObjectUndo(flashGo, "Create FlashOverlay");
@@ -105,15 +110,17 @@ public class DialogueHudEditor : Editor
 
         // Assign all fields on DialogueHud via SerializedObject (fields are private).
         var so = new SerializedObject(hud);
-        so.FindProperty("speakerText").objectReferenceValue = speakerText;
-        so.FindProperty("bodyText").objectReferenceValue = bodyText;
+        so.FindProperty("npcSpeakerText").objectReferenceValue = speakerText;
+        so.FindProperty("npcBodyText").objectReferenceValue = bodyText;
         so.FindProperty("scratchpadText").objectReferenceValue = scratchpadText;
         so.FindProperty("continueButton").objectReferenceValue = continueButton;
         so.FindProperty("followButton").objectReferenceValue = followButton;
         so.FindProperty("ignoreButton").objectReferenceValue = ignoreButton;
         so.FindProperty("flash").objectReferenceValue = flash;
-        so.FindProperty("portrait").objectReferenceValue = portrait;
-        so.FindProperty("clockText").objectReferenceValue = clockText;
+        so.FindProperty("npcPortrait").objectReferenceValue = portrait;
+        so.FindProperty("clockHoursText").objectReferenceValue = clockHoursText;
+        so.FindProperty("clockMinutesText").objectReferenceValue = clockMinutesText;
+        so.FindProperty("clockAmPmText").objectReferenceValue = clockAmPmText;
         so.ApplyModifiedProperties();
 
         Selection.activeGameObject = canvasGo;
@@ -121,23 +128,20 @@ public class DialogueHudEditor : Editor
         Debug.Log("[DialogueHudEditor] Canvas built and wired. Adjust positions/sizes by hand as needed.");
     }
 
-    private static Text MakeText(Transform parent, string name, Vector2 min, Vector2 max, int size, TextAnchor align, Font font)
+    private static TextMeshProUGUI MakeText(Transform parent, string name, Vector2 min, Vector2 max, int size, TextAlignmentOptions align)
     {
         var go = new GameObject(name);
         Undo.RegisterCreatedObjectUndo(go, "Create " + name);
         go.transform.SetParent(parent, false);
-        var t = go.AddComponent<Text>();
-        t.font = font;
+        var t = go.AddComponent<TextMeshProUGUI>();
         t.fontSize = size;
         t.color = Color.white;
         t.alignment = align;
-        t.horizontalOverflow = HorizontalWrapMode.Wrap;
-        t.verticalOverflow = VerticalWrapMode.Overflow;
         Stretch(go.GetComponent<RectTransform>(), min, max);
         return t;
     }
 
-    private static Button MakeButton(Transform parent, string name, string label, Vector2 min, Vector2 max, Font font)
+    private static Button MakeButton(Transform parent, string name, string label, Vector2 min, Vector2 max)
     {
         var go = new GameObject(name);
         Undo.RegisterCreatedObjectUndo(go, "Create " + name);
@@ -150,11 +154,10 @@ public class DialogueHudEditor : Editor
 
         var child = new GameObject("Label");
         child.transform.SetParent(go.transform, false);
-        var t = child.AddComponent<Text>();
-        t.font = font;
+        var t = child.AddComponent<TextMeshProUGUI>();
         t.fontSize = 24;
         t.color = Color.white;
-        t.alignment = TextAnchor.MiddleCenter;
+        t.alignment = TextAlignmentOptions.Center;
         t.text = label;
         Stretch(child.GetComponent<RectTransform>(), Vector2.zero, Vector2.one);
         return btn;

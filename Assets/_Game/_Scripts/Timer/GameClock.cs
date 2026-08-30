@@ -12,11 +12,42 @@ public class GameClock : MonoBehaviour
     private int startSeconds;
     private int endSeconds;
     private bool shiftEnded;
+    private float timeScale = 1f; // 1 = normal, <1 = slower
 
     public static GameClock Instance { get; private set; }
     public float NormalizedTime => Mathf.Clamp01(currentRealSeconds / shiftConfig.RealShiftSeconds);
     public bool ShiftEnded => shiftEnded;
     public string ClockLabel => FormatClock();
+    
+    public string ClockHours
+    {
+        get
+        {
+            if (shiftConfig == null) return "--";
+            int hours = currentInGameSeconds / 3600;
+            return ((hours % 12 == 0) ? 12 : (hours % 12)).ToString();
+        }
+    }
+
+    public string ClockMinutes
+    {
+        get
+        {
+            if (shiftConfig == null) return "--";
+            int minutes = (currentInGameSeconds % 3600) / 60;
+            return $"{minutes:00}";
+        }
+    }
+
+    public string ClockAmPm
+    {
+        get
+        {
+            if (shiftConfig == null) return "--";
+            int hours = currentInGameSeconds / 3600;
+            return (hours < 12) ? "AM" : "PM";
+        }
+    }
 
     public event Action OnShiftEnd;
     public event Action OnTimeChanged;
@@ -49,7 +80,8 @@ public class GameClock : MonoBehaviour
     {
         if (shiftEnded || shiftConfig == null) return;
 
-        currentRealSeconds = Mathf.Min(currentRealSeconds + realSeconds, shiftConfig.RealShiftSeconds);
+        // Apply powerup time scale — <1.0 makes the clock tick slower
+        currentRealSeconds = Mathf.Min(currentRealSeconds + realSeconds * timeScale, shiftConfig.RealShiftSeconds);
         UpdateInGameTime();
         OnTimeChanged?.Invoke();
 
@@ -58,6 +90,12 @@ public class GameClock : MonoBehaviour
             shiftEnded = true;
             OnShiftEnd?.Invoke();
         }
+    }
+
+    /// <summary>Set a time scale multiplier. 1 = normal, 0.33 = clock runs at 1/3 speed.</summary>
+    public void SetTimeScale(float scale)
+    {
+        timeScale = Mathf.Clamp(scale, 0f, 10f);
     }
 
     private void UpdateInGameTime()
