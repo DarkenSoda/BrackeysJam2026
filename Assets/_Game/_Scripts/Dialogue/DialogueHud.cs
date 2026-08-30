@@ -27,7 +27,7 @@ public class DialogueHud : MonoBehaviour
     [SerializeField] private TextMeshProUGUI passengerSpeakerText;
     [SerializeField] private TextMeshProUGUI passengerBodyText;
     [SerializeField] private Button continueButton;
-    [SerializeField] private Image passengerImage;
+    [SerializeField] private GameObject passengerImage;
 
     [Header("Effects")]
     [SerializeField] private Image flash;
@@ -158,7 +158,7 @@ public class DialogueHud : MonoBehaviour
         {
             AudioManager.Instance.PlayPickup();
         }
-        passengerImage.gameObject.SetActive(true);
+        passengerImage.SetActive(true);
     }
     private void ShowTip()
     {
@@ -212,7 +212,7 @@ public class DialogueHud : MonoBehaviour
         {
             AudioManager.Instance.PlayDropoff();
         }
-        passengerImage.gameObject.SetActive(false);
+        passengerImage.SetActive(false);
 
     }
     private void RefreshScratchpad(RolledTrip trip)
